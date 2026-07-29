@@ -59,7 +59,7 @@ export async function registerRoutes(
       createTableIfMissing: true,
       tableName: "sessions",
     }),
-    secret: process.env.SESSION_SECRET || "portfolio-secret-key",
+    secret: process.env.SESSION_SECRET || (() => { throw new Error("SESSION_SECRET environment variable is required"); })(),
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -338,15 +338,9 @@ export async function registerRoutes(
 }
 
 async function seedDatabase() {
-  // Create default admin user if not exists
-  const existingAdmin = await storage.getAdminByUsername("chaelvin");
-  if (!existingAdmin) {
-    const hashedPassword = await bcrypt.hash("neowise24", 10);
-    await storage.createAdminUser({
-      username: "chaelvin",
-      password: hashedPassword,
-    });
-  }
+  // Admin account must be created manually via the ADMIN_USERNAME / ADMIN_PASSWORD
+  // environment variables on first boot, or through a dedicated setup endpoint.
+  // No default credentials are seeded to prevent predictable privileged logins.
 
   // Seed profile if not exists
   const existingProfile = await storage.getProfile();
