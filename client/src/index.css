@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Elegant, modern blue-gray palette */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  --background: 210 100% 98%;
+  --foreground: 222 47% 11%;
+  
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 210 60% 94%;
+  --secondary-foreground: 222 47% 11%;
+  
+  --muted: 210 60% 94%;
+  --muted-foreground: 215 16% 47%;
+  
+  --accent: 262 83% 58%;
+  --accent-foreground: 210 40% 98%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 221 83% 53%;
+  
+  --radius: 1rem;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+}
+
+.dark {
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+  
+  --primary: 217 91% 60%;
+  --primary-foreground: 222 47% 11%;
+  
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  
+  --accent: 262 83% 58%;
+  --accent-foreground: 210 40% 98%;
+  
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 40% 98%;
+  
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 224 76% 48%;
+  
+  --card: 222 47% 13%;
+  --card-foreground: 210 40% 98%;
+  
+  --popover: 222 47% 13%;
+  --popover-foreground: 210 40% 98%;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight text-foreground;
+  }
+
+  /* Hide scrollbars but allow scrolling */
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-xl border border-white/20 shadow-2xl shadow-primary/5 hover:shadow-primary/10 transition-all duration-500 rounded-[2rem];
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-primary via-accent to-primary bg-300% animate-gradient;
+  }
+
+  .genius-border {
+    @apply relative before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-br before:from-primary/50 before:via-transparent before:to-accent/50 before:rounded-[inherit] before:content-[''] before:-z-10;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient 6s ease infinite;
+}
