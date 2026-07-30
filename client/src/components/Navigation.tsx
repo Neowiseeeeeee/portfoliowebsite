@@ -10,20 +10,16 @@ export function Navigation() {
   const { theme, setTheme } = useTheme();
 
   const navItems = [
-    { href: "#hero",       label: "Home" },
-    { href: "#about",      label: "About" },
-    { href: "#skills",     label: "Skills" },
+    { href: "#hero",       label: "Home"       },
+    { href: "#skills",     label: "Skills"     },
     { href: "#experience", label: "Experience" },
-    { href: "#education",  label: "Education" },
-    { href: "#projects",   label: "Projects" },
-    { href: "#contact",    label: "Contact" },
+    { href: "#contact",    label: "Contact"    },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
     }
   };
@@ -57,7 +53,7 @@ export function Navigation() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle dark mode"
-              className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-primary/20 text-primary hover:bg-primary/10 transition-all hover:scale-105 active:scale-95"
+              className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-primary/20 text-primary hover:bg-primary/10 transition-all hover:scale-105 active:scale-95 relative"
             >
               <Sun className="w-4 h-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 absolute" />
               <Moon className="w-4 h-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 absolute" />
