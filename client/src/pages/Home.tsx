@@ -18,6 +18,7 @@ const profile = {
 const skillsByCategory: Record<string, string[]> = {
   Languages: ["HTML", "CSS", "JavaScript", "Python", "PHP", "C++", "Visual Basic"],
   Database:  ["MySQL"],
+  Tools:     ["WordPress", "GoHighLevel", "Figma", "AutoCAD"],
 };
 
 const education = [
@@ -285,8 +286,8 @@ export default function Home() {
           >
             <div className="space-y-6 text-xl text-muted-foreground font-medium leading-relaxed">
               {[
-                "I'm Chaelvin, a Computer Engineering student from General Trias, Cavite, and a self-driven freelancer who fell in love with the web early on. What started as tinkering with HTML and CSS has grown into building complete, full-stack systems — from hospital management platforms to internship tools used by real students. Every project I take on is a chance to turn a real problem into something people actually want to use.",
-                "I believe great software lives at the intersection of discipline and creativity. Whether I'm crafting a clean interface or architecting a backend, I bring the same mindset to everything I do: Pray Hard, Work Hard, Be Humble. I'm currently open to freelance work and collaborations that push me to keep growing.",
+                "Fresh Computer Engineering graduate from General Trias, Cavite. I build clean, functional web experiences and turn real problems into tools people actually want to use.",
+                "Pray Hard, Work Hard, Be Humble — and always open to freelance work and collabs.",
               ].map((para, i) => (
                 <motion.p key={i} variants={fadeLeft} className={i === 0 ? "border-l-4 border-primary/40 pl-8" : "pl-8 text-muted-foreground/70 italic"}>
                   {para}
