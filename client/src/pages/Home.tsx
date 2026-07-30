@@ -197,15 +197,6 @@ export default function Home() {
               {/* CTAs */}
               <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
                 <motion.a
-                  href="#projects"
-                  onClick={(e) => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  whileTap={{ scale: 0.96 }}
-                  className="px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-bold hover:shadow-2xl hover:shadow-primary/40 flex items-center gap-2 transition-shadow"
-                >
-                  View Projects <ArrowRight className="w-5 h-5" />
-                </motion.a>
-                <motion.a
                   href="https://drive.google.com/drive/folders/1lzI8W6XBBq4w9kLcKEtmnTajz3b8-NRv?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
