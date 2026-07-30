@@ -121,17 +121,29 @@ function SectionHeading({ children, className }: { children: React.ReactNode; cl
 
 export default function Home() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const subject = encodeURIComponent(`Message from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\nFrom: ${form.name} <${form.email}>`);
-    window.open(`mailto:${profile.email}?subject=${subject}&body=${body}`);
-    setForm({ name: "", email: "", message: "" });
+    setFormStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setFormStatus("success");
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setFormStatus("idle"), 5000);
+    } catch {
+      setFormStatus("error");
+      setTimeout(() => setFormStatus("idle"), 5000);
+    }
   }
 
   return (
@@ -738,11 +750,21 @@ export default function Home() {
 
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.03, y: -3, boxShadow: "0 20px 40px -8px hsl(var(--primary)/0.4)" }}
+                  disabled={formStatus === "sending"}
+                  whileHover={formStatus === "idle" ? { scale: 1.03, y: -3, boxShadow: "0 20px 40px -8px hsl(var(--primary)/0.4)" } : {}}
                   whileTap={{ scale: 0.97 }}
-                  className="w-full py-6 rounded-2xl bg-primary text-primary-foreground font-black text-xl tracking-tighter flex items-center justify-center gap-4 transition-shadow"
+                  className={`w-full py-6 rounded-2xl font-black text-xl tracking-tighter flex items-center justify-center gap-4 transition-all ${
+                    formStatus === "success"
+                      ? "bg-green-500 text-white"
+                      : formStatus === "error"
+                      ? "bg-red-500 text-white"
+                      : "bg-primary text-primary-foreground"
+                  } disabled:opacity-70 disabled:cursor-not-allowed`}
                 >
-                  TRANSMIT MESSAGE <Send className="w-6 h-6" />
+                  {formStatus === "sending" && <><span className="animate-spin w-6 h-6 border-2 border-white/40 border-t-white rounded-full inline-block" /> SENDING...</>}
+                  {formStatus === "success" && <>✓ MESSAGE SENT!</>}
+                  {formStatus === "error" && <>✗ FAILED — TRY AGAIN</>}
+                  {formStatus === "idle" && <>TRANSMIT MESSAGE <Send className="w-6 h-6" /></>}
                 </motion.button>
               </form>
             </motion.div>
