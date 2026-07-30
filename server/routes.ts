@@ -137,7 +137,7 @@ export async function registerRoutes(
         return res.status(400).json({ message: "All fields are required." });
       }
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
+      const result = await resend.emails.send({
         from: "Portfolio Contact <onboarding@resend.dev>",
         to: "cbolante24@gmail.com",
         replyTo: email,
@@ -150,6 +150,11 @@ export async function registerRoutes(
           <p>${message.replace(/\n/g, "<br/>")}</p>
         `,
       });
+      console.log("[Resend] result:", JSON.stringify(result));
+      if (result.error) {
+        console.error("[Resend] error:", result.error);
+        return res.status(500).json({ message: result.error.message });
+      }
       res.json({ success: true });
     } catch (err) {
       console.error("Resend error:", err);
