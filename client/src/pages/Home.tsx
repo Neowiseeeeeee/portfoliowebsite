@@ -206,6 +206,16 @@ export default function Home() {
                   View Projects <ArrowRight className="w-5 h-5" />
                 </motion.a>
                 <motion.a
+                  href="https://drive.google.com/drive/folders/1lzI8W6XBBq4w9kLcKEtmnTajz3b8-NRv?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -4 }}
+                  whileTap={{ scale: 0.96 }}
+                  className="px-8 py-4 rounded-2xl bg-muted/60 backdrop-blur-sm border border-primary/20 text-foreground font-bold hover:bg-muted flex items-center gap-2 transition-colors"
+                >
+                  View Portfolio <ExternalLink className="w-5 h-5" />
+                </motion.a>
+                <motion.a
                   href="#contact"
                   onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
                   whileHover={{ scale: 1.05, y: -4 }}
@@ -666,8 +676,9 @@ export default function Home() {
 
               <motion.div variants={staggerContainer} className="space-y-8">
                 {[
-                  { icon: MapPin, label: "Location", value: profile.location, link: null },
-                  { icon: Send,   label: "Email",    value: profile.email,    link: `mailto:${profile.email}` },
+                  { icon: MapPin,      label: "Location",  value: profile.location, link: null },
+                  { icon: Send,        label: "Email",     value: profile.email,    link: `mailto:${profile.email}` },
+                  { icon: ExternalLink, label: "Portfolio", value: "View Resume & Case Studies", link: "https://drive.google.com/drive/folders/1lzI8W6XBBq4w9kLcKEtmnTajz3b8-NRv?usp=drive_link" },
                 ].map(({ icon: Icon, label, value, link }) => (
                   <motion.div key={label} variants={fadeLeft} className="flex items-center gap-6 group">
                     <motion.div
