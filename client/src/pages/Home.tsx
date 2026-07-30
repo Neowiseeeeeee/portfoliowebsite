@@ -137,7 +137,7 @@ export default function Home() {
       <Navigation />
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section ref={heroRef} id="hero" className="pt-32 pb-20 md:pt-48 md:pb-32 px-4 relative overflow-hidden min-h-screen flex items-center">
+      <section ref={heroRef} id="hero" className="px-4 pt-20 relative overflow-hidden min-h-screen flex items-center">
         {/* Animated background orbs */}
         <motion.div style={{ y: heroY }} className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-primary/20 rounded-full blur-[130px] -z-10 animate-orb" />
         <motion.div style={{ y: heroY }} className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-accent/20 rounded-full blur-[130px] -z-10 animate-orb-reverse" />
