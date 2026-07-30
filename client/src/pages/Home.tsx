@@ -19,6 +19,7 @@ const skillsByCategory: Record<string, string[]> = {
   Languages: ["HTML", "CSS", "JavaScript", "Python", "PHP", "C++", "Visual Basic"],
   Database:  ["MySQL"],
   Tools:     ["WordPress", "GoHighLevel", "Figma", "AutoCAD"],
+  "AI Tools": ["ChatGPT", "Claude", "Gemini", "Replit"],
 };
 
 const education = [
