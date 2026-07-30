@@ -131,12 +131,19 @@ export default function Home() {
     e.preventDefault();
     setFormStatus("sending");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          access_key: "f8609864-575e-4dde-8596-13a454b8c867",
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `New message from ${form.name} — Portfolio`,
+        }),
       });
-      if (!res.ok) throw new Error("Failed");
+      const data = await res.json();
+      if (!data.success) throw new Error("Failed");
       setFormStatus("success");
       setForm({ name: "", email: "", message: "" });
       setTimeout(() => setFormStatus("idle"), 5000);
