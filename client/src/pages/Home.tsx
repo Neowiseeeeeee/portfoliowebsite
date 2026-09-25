@@ -33,11 +33,11 @@ const profile = {
   handle: "@Neowise",
   title: "Full-Stack Developer & Software Engineer",
   tagline:
-    "Crafting polished web applications, resilient digital architectures, and immersive interactive experiences.",
+    "Computer Engineering graduate with experience in web development, system implementation, and research-based projects.",
   avatarUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/dp.jpg",
-  location: "General Trias, Cavite, Philippines",
+  location: "Pasong Kawayan I, General Trias, Cavite",
   email: "cbolante24@gmail.com",
-  phone: "+63 945 848 8318",
+  phone: "09360658121",
   status: "Available for Full-Time & Freelance",
   philosophy:
     "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight. — Proverbs 3:5-6",
@@ -94,20 +94,16 @@ const projects: ProjectData[] = [
 // ── Skills by Domain ─────────────────────────────────────────────────────────
 const skillsData = [
   {
-    domain: "Languages",
-    skills: ["TypeScript", "JavaScript (ES6+)", "PHP", "Python", "C++", "HTML5 & CSS3"],
+    domain: "Technical Skills",
+    skills: ["Web Development", "WordPress", "SEO Optimization", "Basic IT Support & Diagnostics", "Microcontrollers & Sensors", "IoT System Architecture"],
   },
   {
-    domain: "Frontend Architecture",
-    skills: ["React", "Next.js", "Tailwind CSS", "Redux Toolkit", "Framer Motion", "Vite"],
+    domain: "Tools & Software",
+    skills: ["WordPress", "Figma", "Canva", "AI Content Tools", "AutoCAD", "Microsoft Office (Excel, Word, PowerPoint)"],
   },
   {
-    domain: "Backend & Database",
-    skills: ["Node.js", "Express.js", "PostgreSQL", "MySQL", "MongoDB", "REST APIs"],
-  },
-  {
-    domain: "Tools & Workflow",
-    skills: ["Git & GitHub", "WordPress", "Figma", "Docker", "Postman", "Vercel / Render"],
+    domain: "Professional & Core Skills",
+    skills: ["Customer Communication", "Team Collaboration", "Problem Solving", "Critical Thinking", "Adaptability", "Time Management", "Attention to Detail", "Task Prioritization"],
   },
 ];
 
@@ -278,7 +274,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#04060c] text-slate-100 font-sans selection:bg-cyan-500/25 selection:text-cyan-300 overflow-x-hidden flex flex-col justify-between">
+    <div className="relative min-h-screen lg:h-screen lg:overflow-hidden bg-[#04060c] text-slate-100 font-sans selection:bg-cyan-500/25 selection:text-cyan-300 overflow-x-hidden flex flex-col justify-between">
       {/* ── Cinematic Entrance Preloader (startuplab.ph style FLIP text animation) ── */}
       {showPreloader && (
         <CinematicPreloader
@@ -291,7 +287,7 @@ export default function Home() {
       <ConstellationCanvas />
 
       {/* ── Outer Margin Top Bar ── */}
-      <header className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-2 flex items-center justify-between">
+      <header className="relative z-10 w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 pb-2 flex items-center justify-between shrink-0">
         {/* Brandmark: Pure NEOWISE Typography in Times New Roman with Cosmic Glow and crowned 'i' dot */}
         <div
           ref={logoTargetRef}
@@ -327,21 +323,21 @@ export default function Home() {
       </header>
 
       {/* ── Main Workstation Stage (Dual-Panel Floating Studio Hub) ── */}
-      <main className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-6 py-4 flex-1 flex flex-col justify-center">
-        <div className="w-full rounded-[28px] sm:rounded-3xl border border-white/15 bg-[#090e1a]/90 backdrop-blur-2xl shadow-[0_0_90px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col lg:flex-row transition-all duration-300">
+      <main className="relative z-10 w-full max-w-[1536px] mx-auto px-3 sm:px-5 lg:px-8 py-1 sm:py-2.5 flex-1 flex flex-col justify-center min-h-0 overflow-hidden">
+        <div className="w-full h-full lg:max-h-[calc(100vh-115px)] rounded-2xl sm:rounded-3xl border border-white/15 bg-[#090e1a]/95 backdrop-blur-2xl overflow-hidden flex flex-col lg:flex-row transition-all duration-300">
           {/* ══════════════════════════════════════════════════════════════════════
               LEFT IDENTITY PANEL (Stationary Profile Studio)
              ══════════════════════════════════════════════════════════════════════ */}
-          <aside className="w-full lg:w-[360px] xl:w-[390px] shrink-0 bg-[#0c1322]/95 border-b lg:border-b-0 lg:border-r border-white/10 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+          <aside className="w-full lg:w-[380px] xl:w-[410px] 2xl:w-[430px] shrink-0 bg-[#0c1322]/95 border-b lg:border-b-0 lg:border-r border-white/10 p-6 sm:p-7 2xl:p-8 flex flex-col justify-between relative overflow-y-auto scrollbar-thin">
             {/* Ambient radial accent inside left card */}
             <div className="absolute top-0 right-0 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
             <div className="absolute bottom-0 left-0 w-56 h-56 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-0" />
 
-            <div className="relative z-10 space-y-6">
+            <div className="relative z-10 space-y-5">
               {/* Profile Avatar with Glowing Ring */}
               <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
                 <div className="relative group mx-auto lg:mx-0">
-                  <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 xl:w-48 xl:h-48 rounded-3xl overflow-hidden p-1.5 bg-gradient-to-tr from-cyan-500 via-blue-500 to-indigo-500 shadow-2xl shadow-cyan-500/25">
+                  <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 rounded-3xl overflow-hidden p-1.5 bg-gradient-to-tr from-cyan-500 via-blue-500 to-indigo-500 shadow-xl shadow-cyan-500/20">
                     <img
                       src={profile.avatarUrl}
                       alt={profile.fullName}
@@ -350,10 +346,10 @@ export default function Home() {
                   </div>
                   {/* Status Indicator Dot */}
                   <span
-                    className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#0c1322] flex items-center justify-center shadow-lg"
+                    className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-[#0c1322] flex items-center justify-center shadow-lg"
                     title={profile.status}
                   >
-                    <span className="w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-emerald-500/30 animate-pulse" />
+                    <span className="w-3.5 h-3.5 rounded-full bg-emerald-400 ring-4 ring-emerald-500/30 animate-pulse" />
                   </span>
                 </div>
 
@@ -361,7 +357,7 @@ export default function Home() {
                   <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight flex items-center justify-center lg:justify-start gap-2">
                     {profile.fullName}
                   </h1>
-                  <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide mt-1">
+                  <p className="text-xs sm:text-sm font-mono text-cyan-400 font-semibold tracking-wide mt-1">
                     {profile.handle} • {profile.title}
                   </p>
                 </div>
@@ -369,17 +365,17 @@ export default function Home() {
 
               {/* Core Philosophy Box */}
               <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 text-xs sm:text-sm text-slate-300 leading-relaxed font-normal relative">
-                <div className="text-cyan-400 font-mono text-[10px] uppercase tracking-wider mb-2 font-bold flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3 text-cyan-400" />
+                <div className="text-cyan-400 font-mono text-[11px] uppercase tracking-wider mb-2 font-bold flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                   Core Philosophy
                 </div>
-                <blockquote className="italic text-slate-200 text-xs leading-relaxed border-l-2 border-cyan-400 pl-3 py-0.5">
+                <blockquote className="italic text-slate-200 text-xs sm:text-sm leading-relaxed border-l-2 border-cyan-400 pl-3 py-0.5">
                   "{profile.philosophy}"
                 </blockquote>
               </div>
 
               {/* Key Quick Stats */}
-              <div className="grid grid-cols-3 gap-2 py-1">
+              <div className="grid grid-cols-3 gap-2.5 py-1">
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
                   <div className="text-base sm:text-lg font-black text-cyan-300 font-mono">
                     {projects.length}
@@ -407,7 +403,7 @@ export default function Home() {
               </div>
 
               {/* Action Buttons: Download CV & Copy Email */}
-              <div className="space-y-2.5 pt-2">
+              <div className="space-y-2.5 pt-1">
                 <a
                   href="/resume.pdf"
                   download="Chaelvin_Bolante_Resume.pdf"
@@ -437,8 +433,8 @@ export default function Home() {
             </div>
 
             {/* Bottom Links / Location */}
-            <div className="relative z-10 pt-6 mt-6 border-t border-white/10 space-y-3">
-              <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="relative z-10 pt-5 mt-5 border-t border-white/10 space-y-3">
+              <div className="flex items-center justify-between text-xs sm:text-sm text-slate-400">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                   {profile.location}
@@ -450,7 +446,7 @@ export default function Home() {
                   href={profile.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-1.5 transition-colors"
+                  className="flex-1 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <Github className="w-3.5 h-3.5" />
                   GitHub
@@ -459,7 +455,7 @@ export default function Home() {
                   href={profile.drivePortfolioUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-1.5 transition-colors"
+                  className="flex-1 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   Drive Docs
@@ -471,9 +467,9 @@ export default function Home() {
           {/* ══════════════════════════════════════════════════════════════════════
               RIGHT DYNAMIC CONTENT CANVAS (Modern Underline Tabs)
              ══════════════════════════════════════════════════════════════════════ */}
-          <section className="flex-1 bg-[#070b16]/95 flex flex-col min-h-[640px] sm:min-h-[700px] overflow-hidden">
+          <section className="flex-1 bg-[#070b16]/95 flex flex-col min-h-0 overflow-hidden">
             {/* ── Modern Underline Navigation Bar with Equal Length Items ── */}
-            <div className="border-b border-white/10 bg-[#090f1e]/80 backdrop-blur-md px-2 sm:px-6 sticky top-0 z-20 overflow-x-auto scrollbar-none h-[52px] flex items-stretch">
+            <div className="border-b border-white/10 bg-[#090f1e]/80 backdrop-blur-md px-2 sm:px-6 sticky top-0 z-20 overflow-x-auto scrollbar-none h-[48px] sm:h-[52px] flex items-stretch shrink-0">
               <nav className="grid grid-cols-5 w-full min-w-[540px] h-full" aria-label="Portfolio Sections">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -524,8 +520,8 @@ export default function Home() {
               </nav>
             </div>
 
-            {/* ── Tab Content Stage ── */}
-            <div className="flex-1 p-5 sm:p-8 overflow-y-auto max-h-[calc(100vh-180px)] lg:max-h-[760px] scrollbar-thin">
+            {/* ── Tab Content Stage with Smooth Dedicated Scrollbar ── */}
+            <div className="flex-1 p-5 sm:p-7 xl:p-9 overflow-y-auto scrollbar-thin">
               <AnimatePresence mode="wait">
                 {/* ─────────────────────────────────────────────────────────────
                     TAB 1: ABOUT & EXPERTISE
@@ -549,7 +545,7 @@ export default function Home() {
                         Practical Full-Stack Development
                       </h2>
                       <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
-                        Computer Engineering graduate (2026) from General Trias, Cavite. I build clean, reliable web applications using modern web technologies paired with an AI-assistive development workflow to ship quality features efficiently.
+                        Computer Engineering graduate with experience in web development, system implementation, and research-based projects. Skilled in problem-solving, collaboration, and adapting to new technologies. Committed to delivering quality work while continuously learning and contributing to organizational success.
                       </p>
                     </div>
 
@@ -596,12 +592,12 @@ export default function Home() {
                     <div className="space-y-4">
                       <div className="flex items-center gap-2">
                         <span className="h-4 w-1 bg-cyan-400 rounded-full" />
-                        <h3 className="text-lg font-bold text-white">
+                        <h3 className="text-lg sm:text-xl font-bold text-white">
                           Technical Arsenal & Domains
                         </h3>
                       </div>
 
-                      <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {skillsData.map((category) => (
                           <div
                             key={category.domain}
@@ -614,7 +610,7 @@ export default function Home() {
                               {category.skills.map((skill) => (
                                 <span
                                   key={skill}
-                                  className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-200 text-xs font-medium hover:border-cyan-500/40 hover:text-cyan-300 transition-colors"
+                                  className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-200 text-xs sm:text-sm font-medium hover:border-cyan-500/40 hover:text-cyan-300 transition-colors"
                                 >
                                   {skill}
                                 </span>
@@ -834,19 +830,19 @@ export default function Home() {
                     <div className="space-y-4 pt-2">
                       <div className="flex items-center gap-2 text-sm font-mono text-cyan-400 font-bold uppercase tracking-wider">
                         <Briefcase className="w-4 h-4" />
-                        Professional & Technical Experience
+                        Professional & Engineering Experience
                       </div>
 
-                      {/* Incoming TSR Role */}
+                      {/* Technical Support Representative (Incoming) */}
                       <div className="p-6 rounded-2xl bg-[#091122]/90 border border-cyan-500/30 space-y-3 relative overflow-hidden shadow-lg">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-base font-bold text-white">
-                                Technical Support Representative - Industry Automation
+                              <h3 className="text-base sm:text-lg font-bold text-white">
+                                Technical Support Representative — Industry Automation
                               </h3>
-                              <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
+                              <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
                                 Incoming
                               </span>
                             </div>
@@ -858,27 +854,33 @@ export default function Home() {
                             Offer Accepted
                           </span>
                         </div>
-                        <p className="text-xs text-slate-300 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                           Selected to deliver technical diagnostics, systematic troubleshooting, customer issue resolution, and system ticket handling under enterprise SLA standards.
                         </p>
                       </div>
 
-                      {/* Freelance Experience */}
-                      <div className="p-6 rounded-2xl bg-gradient-to-br from-[#091122] to-[#0d162d] border border-white/10 space-y-4">
+                      {/* Freelance Full-Stack Developer */}
+                      <div className="p-6 rounded-2xl bg-gradient-to-br from-[#091122] to-[#0d162d] border border-white/10 space-y-3">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
-                            <h3 className="text-base font-bold text-white">
-                              Freelance Full-Stack Developer & Software Builder
-                            </h3>
-                            <p className="text-xs text-slate-400 font-mono">
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-base sm:text-lg font-bold text-white">
+                                Freelance Full-Stack Developer & Software Builder
+                              </h3>
+                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-semibold border border-emerald-500/30">
+                                Active / Current
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-400 font-mono mt-0.5">
                               Remote / Cavite, Philippines
                             </p>
                           </div>
-                          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-medium self-start sm:self-auto">
-                            2026
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto">
+                            <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                            2026 — Present
                           </span>
                         </div>
-                        <ul className="space-y-2 text-xs text-slate-300 leading-relaxed list-disc list-inside">
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed list-disc list-inside">
                           <li>
                             Built and deployed hospital management platform (HanapCare) integrating patient intake, EMR records, and room management.
                           </li>
@@ -890,6 +892,74 @@ export default function Home() {
                           </li>
                           <li>
                             Utilized AI-assistive coding workflows to rapidly prototype, debug, and deliver client requirements.
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Web Development OJT */}
+                      <div className="p-6 rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-cyan-500/30 transition-all space-y-3 relative overflow-hidden shadow-lg">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-base sm:text-lg font-bold text-white">
+                                Web Development — On The Job Training
+                              </h3>
+                              <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
+                                OJT
+                              </span>
+                            </div>
+                            <p className="text-xs text-cyan-400 font-medium mt-0.5">
+                              Startuplab Business Center
+                            </p>
+                          </div>
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto">
+                            <Calendar className="w-3.5 h-3.5 text-cyan-400" />
+                            June 2025 — August 2025
+                          </span>
+                        </div>
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed list-disc list-inside">
+                          <li>
+                            Developed and maintained responsive WordPress webpages using Figma-based layouts, contributing to improved website usability and user experience.
+                          </li>
+                          <li>
+                            Conducted SEO keyword research and on-page optimization, helping increase website visibility and improve search ranking performance.
+                          </li>
+                          <li>
+                            Collaborated with team members to troubleshoot technical issues, implement website improvements, and create digital marketing content using AI and design tools.
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Smart Helmet Locker System Thesis */}
+                      <div className="p-6 rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-blue-500/30 transition-all space-y-3 relative overflow-hidden shadow-lg">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-base sm:text-lg font-bold text-white">
+                                Smart Helmet Locker System
+                              </h3>
+                              <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono font-semibold border border-blue-500/30">
+                                Design Project · Thesis
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-400 font-mono mt-0.5">
+                              Computer Engineering Capstone / Thesis
+                            </p>
+                          </div>
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto">
+                            <Calendar className="w-3.5 h-3.5 text-blue-400" />
+                            September 2025 — June 2026
+                          </span>
+                        </div>
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed list-disc list-inside">
+                          <li>
+                            Designed and developed an IoT-based Smart Helmet Locker System integrating temperature, humidity, VOC, and moisture monitoring for helmet safety and storage management.
+                          </li>
+                          <li>
+                            Implemented hardware and software components using microcontrollers, environmental sensors, and automated access mechanisms, including system calibration, testing, and troubleshooting.
+                          </li>
+                          <li>
+                            Conducted research-based performance evaluation and data analysis to improve environmental monitoring accuracy, drying efficiency, and overall system reliability.
                           </li>
                         </ul>
                       </div>
@@ -1137,7 +1207,7 @@ export default function Home() {
       </main>
 
       {/* ── Outer Margin Bottom Footer ── */}
-      <footer className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-center text-xs text-slate-400 font-mono border-t border-white/5">
+      <footer className="relative z-10 w-full max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-center text-[11px] sm:text-xs text-slate-400 font-mono border-t border-white/5 shrink-0">
         <p className="text-center">
           © {new Date().getFullYear()} {profile.preferredName}. All rights reserved.
         </p>
