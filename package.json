@@ -4,9 +4,10 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "vite --port 5000",
+    "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "vite build",
-    "check": "tsc"
+    "check": "tsc",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

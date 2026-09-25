@@ -1,134 +1,244 @@
-import { Navigation } from "@/components/Navigation";
-import { Footer } from "@/components/Footer";
-import { ArrowRight, ExternalLink, Github, Calendar, MapPin, Briefcase, GraduationCap, Award, Send } from "lucide-react";
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  User,
+  FolderGit2,
+  Briefcase,
+  Award,
+  Mail,
+  FileDown,
+  Copy,
+  Check,
+  ExternalLink,
+  Github,
+  MapPin,
+  Sparkles,
+  Send,
+  Calendar,
+  Layers,
+  Maximize2,
+  GraduationCap,
+  Clock,
+  Compass,
+} from "lucide-react";
+import { ConstellationCanvas } from "@/components/ConstellationCanvas";
+import { ProjectLightbox, ProjectData } from "@/components/ProjectLightbox";
+import { CinematicPreloader } from "@/components/CinematicPreloader";
+import { CertificateModal, CertificateData } from "@/components/CertificateModal";
 
-// ── Static data ───────────────────────────────────────────────────────────────
-
+// ── Profile Data ─────────────────────────────────────────────────────────────
 const profile = {
-  fullName: "Chaelvin B Bolante",
-  title: "Freelancer",
-  bio: "I'm looking for new clients who will appreciate my work and design. I aspire to be a full-time freelancer, creating visually stunning and functional projects that bring ideas to life.\n\nPray Hard, Work Hard, Be Humble.",
+  fullName: "Chaelvin B. Bolante",
+  preferredName: "Chaelvin B. Bolante",
+  handle: "@Neowise",
+  title: "Full-Stack Developer & Software Engineer",
+  tagline:
+    "Crafting polished web applications, resilient digital architectures, and immersive interactive experiences.",
   avatarUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/dp.jpg",
-  location: "General Trias, Cavite",
+  location: "General Trias, Cavite, Philippines",
   email: "cbolante24@gmail.com",
+  phone: "+63 945 848 8318",
+  status: "Available for Full-Time & Freelance",
+  philosophy:
+    "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight. — Proverbs 3:5-6",
+  githubUrl: "https://github.com/Neowiseeeeeee",
+  drivePortfolioUrl:
+    "https://drive.google.com/drive/folders/1lzI8W6XBBq4w9kLcKEtmnTajz3b8-NRv?usp=drive_link",
 };
 
-const skillsByCategory: Record<string, string[]> = {
-  Languages: ["HTML", "CSS", "JavaScript", "Python", "PHP", "C++", "Visual Basic"],
-  Database:  ["MySQL"],
-  Tools:     ["WordPress", "GoHighLevel", "Figma", "AutoCAD"],
-  "AI Tools": ["ChatGPT", "Claude", "Gemini", "Replit"],
-};
+// ── Projects Data ────────────────────────────────────────────────────────────
+const projects: ProjectData[] = [
+  {
+    id: 6,
+    title: "Sanctuary",
+    category: "WordPress & Client",
+    description:
+      "A modern, bespoke website and digital sanctuary built with WordPress, delivering a sleek aesthetic experience with responsive design and dynamic content management.",
+    detailedDescription:
+      "A high-fidelity café and lifestyle sanctuary website crafted for Kofi Sanctuary. Built with custom WordPress architecture, responsive layouts, curated typography, and optimized asset delivery for seamless mobile and desktop performance.",
+    technologies: ["WordPress", "PHP", "MySQL", "Tailwind CSS", "JavaScript"],
+    imageUrl: "/sanctuary.png",
+    projectUrl: "https://sanctuary.xo.je/",
+    featured: true,
+  },
+  {
+    id: 5,
+    title: "HanapCare",
+    category: "Healthcare & Enterprise",
+    description:
+      "A cloud-based Hospital Management System designed for hospitals, clinics, and medical centers in the Philippines, digitizing operations from patient registration to billing.",
+    detailedDescription:
+      "An end-to-end healthcare enterprise platform featuring doctor appointment scheduling, digitized Electronic Medical Records (EMR), real-time bed & room availability tracking, role-based access control, and automated billing calculation.",
+    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
+    imageUrl: "/uploads/hanapcare-screenshot.png",
+    projectUrl: "https://hanapcare.onrender.com/",
+    repoUrl: "https://github.com/Neowiseeeeeee/HanapCare",
+    featured: true,
+  },
+  {
+    id: 4,
+    title: "OJTask",
+    category: "Full-Stack",
+    description:
+      "An internship management platform built for Filipino OJT students — tracks hours, daily scrum reports, MOA documents, and practicum records in one organized workspace.",
+    detailedDescription:
+      "Comprehensive practicum tracking system featuring automated daily time logging, student progress metrics, supervisor approval workflows, and centralized memorandum of agreement (MOA) document storage.",
+    technologies: ["React", "TypeScript", "Express", "PostgreSQL", "MongoDB"],
+    imageUrl: "/ojtask.png",
+    projectUrl: "https://ojtask-wzzv.onrender.com/",
+    repoUrl: "https://github.com/Neowiseeeeeee/OJTask",
+    featured: true,
+  },
+];
 
+// ── Skills by Domain ─────────────────────────────────────────────────────────
+const skillsData = [
+  {
+    domain: "Languages",
+    skills: ["TypeScript", "JavaScript (ES6+)", "PHP", "Python", "C++", "HTML5 & CSS3"],
+  },
+  {
+    domain: "Frontend Architecture",
+    skills: ["React", "Next.js", "Tailwind CSS", "Redux Toolkit", "Framer Motion", "Vite"],
+  },
+  {
+    domain: "Backend & Database",
+    skills: ["Node.js", "Express.js", "PostgreSQL", "MySQL", "MongoDB", "REST APIs"],
+  },
+  {
+    domain: "Tools & Workflow",
+    skills: ["Git & GitHub", "WordPress", "Figma", "Docker", "Postman", "Vercel / Render"],
+  },
+];
+
+// ── Education ────────────────────────────────────────────────────────────────
 const education = [
-  { id: 1, school: "Tanza National Comprehensive High School", degree: "High School",          startDate: "2017", endDate: "2020",    logoUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/tnchs.png"  },
-  { id: 2, school: "Holy Nazarene Christian School",           degree: "STEM Strand",           startDate: "2020", endDate: "2022",    logoUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/hncs.jpeg"  },
-  { id: 3, school: "Cavite State University – CCAT Campus",   degree: "BS Computer Engineering", startDate: "2022", endDate: "Present", logoUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/ccat.jpeg"  },
+  {
+    id: 3,
+    school: "Cavite State University – CCAT Campus",
+    degree: "Bachelor of Science in Computer Engineering",
+    period: "2022 — 2026",
+    badge: "Graduated",
+    logoUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/ccat.jpeg",
+    details:
+      "Specializing in hardware-software integration, system architecture, database management, and embedded systems.",
+  },
+  {
+    id: 2,
+    school: "Holy Nazarene Christian School",
+    degree: "Science, Technology, Engineering, and Mathematics (STEM)",
+    period: "2020 — 2022",
+    badge: "Senior High",
+    logoUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/hncs.jpeg",
+    details:
+      "Focused on advanced mathematics, computing principles, engineering sciences, and research methodologies.",
+  },
+  {
+    id: 1,
+    school: "Tanza National Comprehensive High School",
+    degree: "Junior High School",
+    period: "2017 — 2020",
+    badge: "High School",
+    logoUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/tnchs.png",
+    details:
+      "Foundational secondary education with early honors in science and technical computing.",
+  },
 ];
 
-const certificates = [
-  { id: 1, name: "Building AI Agents and Apps with Azure AI Foundry",                          issuer: "Microsoft",   date: "2024", imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/STYAVA.png"     },
-  { id: 2, name: "How to Become a CCNA: All the Things You Need to Know",                      issuer: "Tech Academy", date: "2024", imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/Techacademy.png" },
-  { id: 3, name: "Secrets to Transition into Data Science from a Non-Coding Background",       issuer: "Xaltius",     date: "2024", imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/Xaltius.png"    },
+// ── Certificates ─────────────────────────────────────────────────────────────
+const certificates: CertificateData[] = [
+  {
+    id: 1,
+    name: "National Certificate II in Computer Systems Servicing (NC II)",
+    issuer: "TESDA - Republic of the Philippines",
+    date: "January 2026",
+    imageUrl: "/certificates/tesda_css_ncii.png",
+    credentialId: "26131402001154",
+  },
+  {
+    id: 2,
+    name: "Certificate of Completion – Web Developer Internship (240 Hours)",
+    issuer: "StartupLab Business Center",
+    date: "August 2025",
+    imageUrl: "/certificates/startuplab_internship.png",
+  },
+  {
+    id: 3,
+    name: "GEN AI TO Z: A Career Summit in an AI-Driven World",
+    issuer: "Vibe Coders PH & EMC² Fraternity (UP Diliman)",
+    date: "March 2026",
+    imageUrl: "/certificates/gen_ai_career_summit.png",
+    credentialId: "GAI2Z26-D98B",
+  },
+  {
+    id: 4,
+    name: "Amateur Radio Operator Examination Seminar (Elements II, III, IV)",
+    issuer: "UP Engineering Radio Guild (DX1UP) – UP Diliman",
+    date: "March 2026",
+    imageUrl: "/certificates/up_radio_guild.png",
+    credentialId: "NTC No. 259-19",
+  },
+  {
+    id: 5,
+    name: "Certificate of Participation – Arduino Day Philippines 2026",
+    issuer: "Arduino Days 2026 Philippines",
+    date: "2026",
+    imageUrl: "/certificates/arduino_day_2026.png",
+  },
+  {
+    id: 6,
+    name: "Building AI Agents and Apps with Azure AI Foundry",
+    issuer: "Microsoft",
+    date: "2024",
+    imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/STYAVA.png",
+  },
 ];
-
-const projects = [
-  { id: 5, title: "HanapCare",                   description: "A cloud-based Hospital Management System designed for hospitals, clinics, medical centers, and healthcare facilities in the Philippines, digitizing operations from patient registration to billing.", technologies: ["React","TypeScript","Node.js","PostgreSQL","CSS"], imageUrl: "/uploads/hanapcare-screenshot.png", projectUrl: "https://hanapcare.onrender.com/", repoUrl: "https://github.com/Neowiseeeeeee/HanapCare" },
-  { id: 4, title: "OJTask",                      description: "An internship management platform built for Filipino OJT students — tracks hours, daily scrum reports, MOA documents, and practicum records in one organized workspace.", technologies: ["React","TypeScript","Express","PostgreSQL","MongoDB"], imageUrl: "/ojtask.png", projectUrl: "https://ojtask-wzzv.onrender.com/", repoUrl: "https://github.com/Neowiseeeeeee/OJTask" },
-  { id: 1, title: "Hospital Management System", description: "A web-based app to manage hospital staff, patients, and billing with real-time room tracking.", technologies: ["HTML","CSS"],                           imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/Hospital.png",      projectUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/Hospital%20Management/index.html",                               repoUrl: "https://github.com/neowiseeeeeee" },
-  { id: 2, title: "Burger Management",          description: "A web-based app that lets you add foods instantly.",                                              technologies: ["HTML","CSS","JavaScript"],             imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/burger.png",       projectUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/Restaurant%20Management/Burger%20Management.html",              repoUrl: "https://github.com/neowiseeeeeee" },
-  { id: 3, title: "Stellar Trading",            description: "An online platform dedicated to providing comprehensive insights into various financial markets.", technologies: ["HTML","CSS","JavaScript","PHP","MySQL"], imageUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/images/Stellartrading.png", projectUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/Stellar_Crypto/Stellar%20Crypto%20Landing%20page.html", repoUrl: "https://github.com/neowiseeeeeee" },
-];
-
-// ── Shared animation variants ─────────────────────────────────────────────────
-
-const fadeUp: Variants = {
-  hidden:  { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const fadeLeft: Variants = {
-  hidden:  { opacity: 0, x: -60 },
-  visible: { opacity: 1, x: 0,  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const fadeRight: Variants = {
-  hidden:  { opacity: 0, x: 60 },
-  visible: { opacity: 1, x: 0,  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const scaleSpring: Variants = {
-  hidden:  { opacity: 0, scale: 0.6 },
-  visible: { opacity: 1, scale: 1,   transition: { type: "spring", stiffness: 180, damping: 18 } },
-};
-
-const staggerContainer: Variants = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
-};
-
-const staggerFast: Variants = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.06, delayChildren: 0 } },
-};
-
-const letterVariant: Variants = {
-  hidden:  { opacity: 0, y: 80, rotateX: -40 },
-  visible: { opacity: 1, y: 0,  rotateX: 0, transition: { type: "spring", stiffness: 200, damping: 20 } },
-};
-
-const cardBounce: Variants = {
-  hidden:  { opacity: 0, y: 50, scale: 0.85 },
-  visible: { opacity: 1, y: 0,  scale: 1, transition: { type: "spring", stiffness: 220, damping: 22 } },
-};
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-function AnimatedLetters({ text, className }: { text: string; className?: string }) {
-  return (
-    <motion.span
-      variants={staggerFast}
-      initial="hidden"
-      animate="visible"
-      className={`inline-flex whitespace-nowrap ${className ?? ""}`}
-      style={{ perspective: 800 }}
-    >
-      {text.split("").map((ch, i) => (
-        <motion.span key={i} variants={letterVariant} style={{ display: "inline-block" }}>
-          {ch === " " ? "\u00A0" : ch}
-        </motion.span>
-      ))}
-    </motion.span>
-  );
-}
-
-function SectionHeading({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <motion.h2
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className={className}
-    >
-      {children}
-    </motion.h2>
-  );
-}
-
-// ── Component ─────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<string>("about");
+  const [projectFilter, setProjectFilter] = useState<string>("All");
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
+  const [selectedCert, setSelectedCert] = useState<CertificateData | null>(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [manilaTime, setManilaTime] = useState("");
+  const [showPreloader, setShowPreloader] = useState(true);
+
+  // Reference for the destination NEOWISE logo in navbar
+  const logoTargetRef = useRef<HTMLDivElement>(null);
+
+  // Contact Form
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  async function handleSubmit(e: React.FormEvent) {
+  // Live Manila Time clock (for Contact location card)
+  useEffect(() => {
+    function updateClock() {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Manila",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      setManilaTime(new Intl.DateTimeFormat("en-US", options).format(now));
+    }
+    updateClock();
+    const timer = setInterval(updateClock, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  function handleTabChange(tabId: string) {
+    setActiveTab(tabId);
+  }
+
+  function handleCopyEmail() {
+    navigator.clipboard.writeText(profile.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 3000);
+  }
+
+  async function handleSubmitContact(e: React.FormEvent) {
     e.preventDefault();
     setFormStatus("sending");
     try {
@@ -140,647 +250,908 @@ export default function Home() {
           name: form.name,
           email: form.email,
           message: form.message,
-          subject: `New message from ${form.name} — Portfolio`,
+          subject: `New Transmission from ${form.name} — Portfolio Hub`,
         }),
       });
       const data = await res.json();
-      if (!data.success) throw new Error("Failed");
+      if (!data.success) throw new Error("Transmission failed");
       setFormStatus("success");
       setForm({ name: "", email: "", message: "" });
-      setTimeout(() => setFormStatus("idle"), 5000);
+      setTimeout(() => setFormStatus("idle"), 6000);
     } catch {
       setFormStatus("error");
-      setTimeout(() => setFormStatus("idle"), 5000);
+      setTimeout(() => setFormStatus("idle"), 6000);
     }
   }
 
+  const filteredProjects =
+    projectFilter === "All"
+      ? projects
+      : projects.filter((p) => p.category?.toLowerCase().includes(projectFilter.toLowerCase()));
+
+  const tabs = [
+    { id: "about", label: "About", icon: User, count: null },
+    { id: "experience", label: "Experience", icon: Briefcase, count: null },
+    { id: "projects", label: "Projects", icon: FolderGit2, count: projects.length },
+    { id: "certificates", label: "Certificates", icon: Award, count: certificates.length },
+    { id: "contact", label: "Contact", icon: Mail, count: null },
+  ];
+
   return (
-    <div className="min-h-screen bg-background text-foreground font-body scroll-smooth overflow-x-hidden">
-      <Navigation />
+    <div className="relative min-h-screen bg-[#04060c] text-slate-100 font-sans selection:bg-cyan-500/25 selection:text-cyan-300 overflow-x-hidden flex flex-col justify-between">
+      {/* ── Cinematic Entrance Preloader (startuplab.ph style FLIP text animation) ── */}
+      {showPreloader && (
+        <CinematicPreloader
+          targetRef={logoTargetRef}
+          onComplete={() => setShowPreloader(false)}
+        />
+      )}
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section ref={heroRef} id="hero" className="px-4 pt-20 relative overflow-hidden min-h-screen flex items-center">
-        {/* Animated background orbs */}
-        <motion.div style={{ y: heroY }} className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-primary/20 rounded-full blur-[130px] -z-10 animate-orb" />
-        <motion.div style={{ y: heroY }} className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-accent/20 rounded-full blur-[130px] -z-10 animate-orb-reverse" />
-        <div className="absolute top-1/3 left-1/3 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px] -z-10 animate-float-slow" />
+      {/* ── Space Constellation Canvas (Twinkling stars, moving constellations, comet) ── */}
+      <ConstellationCanvas />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex flex-col md:flex-row items-center gap-16">
+      {/* ── Outer Margin Top Bar ── */}
+      <header className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-2 flex items-center justify-between">
+        {/* Brandmark: Pure NEOWISE Typography in Times New Roman with Cosmic Glow and crowned 'i' dot */}
+        <div
+          ref={logoTargetRef}
+          className="flex items-center group cursor-pointer select-none py-1"
+          onClick={() => handleTabChange("about")}
+          title="Return to About"
+        >
+          <span
+            className="inline-flex items-baseline font-bold tracking-widest text-white text-2xl sm:text-3xl transition-all duration-300 group-hover:text-cyan-300 group-hover:drop-shadow-[0_0_15px_rgba(56,189,248,0.7)]"
+            style={{
+              fontFamily: '"Times New Roman", Times, serif',
+            }}
+          >
+            <span>NEOW</span>
+            <span className="relative inline-block">
+              I
+              {/* Glowing comet dot retained in navbar */}
+              <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 shadow-[0_0_8px_#38bdf8]" />
+              </span>
+            </span>
+            <span>SE</span>
+          </span>
+        </div>
 
-            {/* Left text */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
-              className="flex-1 space-y-10 text-center md:text-left"
-            >
-              {/* Badge */}
-              <motion.div
-                variants={fadeUp}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/70 backdrop-blur-md border border-primary/20 text-primary text-sm font-bold shadow-sm"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-                </span>
-                Available for genius collaborations
-              </motion.div>
+        {/* Quick Contact CTA */}
+        <button
+          onClick={() => handleTabChange("contact")}
+          className="px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/90 to-blue-600/90 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold shadow-lg shadow-cyan-500/20 transition-all hover:scale-105 cursor-pointer"
+        >
+          Get in Touch
+        </button>
+      </header>
 
-              {/* Name */}
-              <div className="space-y-2">
-                <h1 className="text-7xl md:text-9xl font-display font-black leading-[0.9] tracking-tighter block">
-                  <AnimatedLetters text="CHAELVIN" />
-                  <br />
-                  <AnimatedLetters text="BOLANTE" className="text-primary italic" />
-                </h1>
-                <motion.p
-                  variants={fadeUp}
-                  className="text-2xl md:text-3xl text-muted-foreground font-semibold tracking-tight mt-4"
-                >
-                  {profile.title}
-                </motion.p>
+      {/* ── Main Workstation Stage (Dual-Panel Floating Studio Hub) ── */}
+      <main className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-6 py-4 flex-1 flex flex-col justify-center">
+        <div className="w-full rounded-[28px] sm:rounded-3xl border border-white/15 bg-[#090e1a]/90 backdrop-blur-2xl shadow-[0_0_90px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col lg:flex-row transition-all duration-300">
+          {/* ══════════════════════════════════════════════════════════════════════
+              LEFT IDENTITY PANEL (Stationary Profile Studio)
+             ══════════════════════════════════════════════════════════════════════ */}
+          <aside className="w-full lg:w-[360px] xl:w-[390px] shrink-0 bg-[#0c1322]/95 border-b lg:border-b-0 lg:border-r border-white/10 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+            {/* Ambient radial accent inside left card */}
+            <div className="absolute top-0 right-0 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-0" />
+
+            <div className="relative z-10 space-y-6">
+              {/* Profile Avatar with Glowing Ring */}
+              <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
+                <div className="relative group mx-auto lg:mx-0">
+                  <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 xl:w-48 xl:h-48 rounded-3xl overflow-hidden p-1.5 bg-gradient-to-tr from-cyan-500 via-blue-500 to-indigo-500 shadow-2xl shadow-cyan-500/25">
+                    <img
+                      src={profile.avatarUrl}
+                      alt={profile.fullName}
+                      className="w-full h-full object-cover rounded-[20px] transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  {/* Status Indicator Dot */}
+                  <span
+                    className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#0c1322] flex items-center justify-center shadow-lg"
+                    title={profile.status}
+                  >
+                    <span className="w-4 h-4 rounded-full bg-emerald-400 ring-4 ring-emerald-500/30 animate-pulse" />
+                  </span>
+                </div>
+
+                <div className="w-full">
+                  <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight flex items-center justify-center lg:justify-start gap-2">
+                    {profile.fullName}
+                  </h1>
+                  <p className="text-xs font-mono text-cyan-400 font-semibold tracking-wide mt-1">
+                    {profile.handle} • {profile.title}
+                  </p>
+                </div>
               </div>
 
-              {/* Bio */}
-              <motion.div variants={fadeUp} className="relative">
-                <div className="absolute -left-6 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-accent to-transparent rounded-full hidden md:block" />
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed font-medium">
-                  {profile.bio.split("\n\n")[0]}
-                </p>
-              </motion.div>
+              {/* Core Philosophy Box */}
+              <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 text-xs sm:text-sm text-slate-300 leading-relaxed font-normal relative">
+                <div className="text-cyan-400 font-mono text-[10px] uppercase tracking-wider mb-2 font-bold flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-cyan-400" />
+                  Core Philosophy
+                </div>
+                <blockquote className="italic text-slate-200 text-xs leading-relaxed border-l-2 border-cyan-400 pl-3 py-0.5">
+                  "{profile.philosophy}"
+                </blockquote>
+              </div>
 
-              {/* Location */}
-              <motion.div variants={fadeUp} className="flex items-center gap-2 text-muted-foreground justify-center md:justify-start">
-                <MapPin className="w-4 h-4" />
-                <span>{profile.location}</span>
-              </motion.div>
+              {/* Key Quick Stats */}
+              <div className="grid grid-cols-3 gap-2 py-1">
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-base sm:text-lg font-black text-cyan-300 font-mono">
+                    {projects.length}
+                  </div>
+                  <div className="text-[10px] text-slate-400 uppercase font-mono font-medium">
+                    Projects
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-base sm:text-lg font-black text-emerald-300 font-mono">
+                    {certificates.length}
+                  </div>
+                  <div className="text-[10px] text-slate-400 uppercase font-mono font-medium">
+                    Certificates
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-base sm:text-lg font-black text-blue-300 font-mono">
+                    BS CpE
+                  </div>
+                  <div className="text-[10px] text-slate-400 uppercase font-mono font-medium">
+                    Graduate
+                  </div>
+                </div>
+              </div>
 
-              {/* CTAs */}
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
-                <motion.a
-                  href="https://drive.google.com/drive/folders/1lzI8W6XBBq4w9kLcKEtmnTajz3b8-NRv?usp=drive_link"
+              {/* Action Buttons: Download CV & Copy Email */}
+              <div className="space-y-2.5 pt-2">
+                <a
+                  href="/resume.pdf"
+                  download="Chaelvin_Bolante_Resume.pdf"
+                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02] active:scale-[0.99]"
+                >
+                  <FileDown className="w-4 h-4" />
+                  Download Resume / CV
+                </a>
+
+                <button
+                  onClick={handleCopyEmail}
+                  className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 hover:text-white text-xs sm:text-sm font-medium flex items-center justify-center gap-2 transition-all hover:border-cyan-500/30"
+                >
+                  {copiedEmail ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-400" />
+                      <span className="text-emerald-300 font-semibold">Email Copied to Clipboard!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-slate-400" />
+                      <span>{profile.email}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Links / Location */}
+            <div className="relative z-10 pt-6 mt-6 border-t border-white/10 space-y-3">
+              <div className="flex items-center justify-between text-xs text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-cyan-400" />
+                  {profile.location}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href={profile.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  whileTap={{ scale: 0.96 }}
-                  className="px-8 py-4 rounded-2xl bg-muted/60 backdrop-blur-sm border border-primary/20 text-foreground font-bold hover:bg-muted flex items-center gap-2 transition-colors"
+                  className="flex-1 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  View Portfolio <ExternalLink className="w-5 h-5" />
-                </motion.a>
-                <motion.a
-                  href="#contact"
-                  onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  whileTap={{ scale: 0.96 }}
-                  className="px-8 py-4 rounded-2xl bg-muted/60 backdrop-blur-sm border border-primary/10 text-foreground font-bold hover:bg-muted transition-colors"
+                  <Github className="w-3.5 h-3.5" />
+                  GitHub
+                </a>
+                <a
+                  href={profile.drivePortfolioUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  Connect Now
-                </motion.a>
-              </motion.div>
-            </motion.div>
-
-            {/* Right — profile photo, no grayscale, floating */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7, rotate: -6 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-              className="flex-1 flex justify-center md:justify-end"
-            >
-              <div className="relative w-80 h-80 md:w-[450px] md:h-[450px] animate-float">
-                <div className="absolute inset-[-20px] bg-gradient-to-tr from-primary via-accent to-primary rounded-full opacity-25 blur-[60px] animate-pulse" />
-                <div className="absolute inset-0 border-2 border-primary/30 rounded-full animate-[spin_20s_linear_infinite] -z-10" />
-                <div className="absolute inset-4 border border-accent/30 rounded-full animate-[spin_12s_linear_infinite_reverse] -z-10" />
-                <motion.div
-                  className="w-full h-full p-4 bg-background/20 backdrop-blur-sm rounded-full border border-border/40 shadow-2xl relative z-10 overflow-hidden"
-                  whileHover={{ scale: 1.04 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 18 }}
-                >
-                  <img
-                    src={profile.avatarUrl}
-                    alt="Chaelvin Bolante"
-                    className="w-full h-full object-cover rounded-full transition-transform duration-700 scale-110 hover:scale-100"
-                  />
-                </motion.div>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Drive Docs
+                </a>
               </div>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Scroll cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="w-0.5 h-8 bg-gradient-to-b from-primary/60 to-transparent rounded-full"
-          />
-        </motion.div>
-      </section>
-
-      {/* ── About ────────────────────────────────────────────────────────── */}
-      <section id="about" className="py-32 relative bg-secondary/30 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, scale: 1.5 }}
-          whileInView={{ opacity: 0.04, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2 }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-        >
-          <span className="text-[20vw] font-display font-black text-foreground whitespace-nowrap">STORY</span>
-        </motion.div>
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <SectionHeading className="text-5xl md:text-7xl font-display font-black tracking-tighter mb-12">THE STORY</SectionHeading>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="grid md:grid-cols-2 gap-12 items-start"
-          >
-            <div className="space-y-6 text-xl text-muted-foreground font-medium leading-relaxed">
-              {[
-                "Fresh Computer Engineering graduate from General Trias, Cavite. I build clean, functional web experiences and turn real problems into tools people actually want to use.",
-                "Pray Hard, Work Hard, Be Humble — and always open to freelance work and collabs.",
-              ].map((para, i) => (
-                <motion.p key={i} variants={fadeLeft} className={i === 0 ? "border-l-4 border-primary/40 pl-8" : "pl-8 text-muted-foreground/70 italic"}>
-                  {para}
-                </motion.p>
-              ))}
             </div>
+          </aside>
 
-            <motion.div variants={staggerContainer} className="grid grid-cols-2 gap-4">
-              {[
-                { label: "Location",  value: profile.location         },
-                { label: "Email",     value: profile.email            },
-                { label: "Status",    value: "Open to Work"           },
-                { label: "Focus",     value: "Web & Software Dev"     },
-              ].map(({ label, value }, i) => (
-                <motion.div
-                  key={label}
-                  variants={cardBounce}
-                  whileHover={{ y: -6, scale: 1.03 }}
-                  className="glass-card p-6 space-y-1 cursor-default"
-                >
-                  <p className="text-xs font-black uppercase tracking-widest text-muted-foreground/60">{label}</p>
-                  <p className="font-bold text-sm break-all">{value}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Skills ───────────────────────────────────────────────────────── */}
-      <section id="skills" className="py-32 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
-        <div className="absolute right-[-200px] top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -z-10 animate-float-delayed" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="text-center mb-24"
-          >
-            <SectionHeading className="text-5xl md:text-7xl font-display font-black tracking-tighter mb-6">EXPERTISE</SectionHeading>
-            <motion.p variants={fadeUp} className="text-xl text-muted-foreground font-medium uppercase tracking-[0.2em]">
-              Mastering the Digital Realm
-            </motion.p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
-            {Object.entries(skillsByCategory).map(([category, categorySkills], idx) => (
-              <motion.div
-                key={category}
-                variants={idx % 2 === 0 ? fadeLeft : fadeRight}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                className="space-y-10"
-              >
-                <div className="flex items-center gap-6">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: 48 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="h-1 bg-primary rounded-full"
-                  />
-                  <h3 className="text-3xl font-display font-black tracking-tight">{category.toUpperCase()}</h3>
-                </div>
-
-                <motion.div
-                  variants={staggerContainer}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="grid grid-cols-2 gap-4"
-                >
-                  {categorySkills.map((skill) => (
-                    <motion.div
-                      key={skill}
-                      variants={cardBounce}
-                      whileHover={{ y: -10, scale: 1.04, boxShadow: "0 20px 40px -8px hsl(var(--primary)/0.25)" }}
-                      whileTap={{ scale: 0.97 }}
-                      className="glass-card p-6 flex flex-col items-center justify-center text-center group cursor-pointer"
+          {/* ══════════════════════════════════════════════════════════════════════
+              RIGHT DYNAMIC CONTENT CANVAS (Modern Underline Tabs)
+             ══════════════════════════════════════════════════════════════════════ */}
+          <section className="flex-1 bg-[#070b16]/95 flex flex-col min-h-[640px] sm:min-h-[700px] overflow-hidden">
+            {/* ── Modern Underline Navigation Bar with Equal Length Items ── */}
+            <div className="border-b border-white/10 bg-[#090f1e]/80 backdrop-blur-md px-2 sm:px-6 sticky top-0 z-20 overflow-x-auto scrollbar-none h-[52px] flex items-stretch">
+              <nav className="grid grid-cols-5 w-full min-w-[540px] h-full" aria-label="Portfolio Sections">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => handleTabChange(tab.id)}
+                      className={`relative h-full px-2 text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-all group w-full text-center cursor-pointer select-none ${
+                        isActive
+                          ? "text-cyan-300"
+                          : "text-slate-400 hover:text-slate-200"
+                      }`}
                     >
-                      <span className="text-lg font-black tracking-tight group-hover:text-primary transition-colors duration-300">
-                        {skill}
-                      </span>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileHover={{ width: "100%" }}
-                        className="h-0.5 bg-primary mt-2 rounded-full"
-                        transition={{ duration: 0.4 }}
+                      <Icon
+                        className={`w-4 h-4 transition-colors shrink-0 ${
+                          isActive
+                            ? "text-cyan-400"
+                            : "text-slate-400 group-hover:text-slate-300"
+                        }`}
                       />
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                      <span className="leading-none">{tab.label}</span>
 
-      {/* ── Experience ───────────────────────────────────────────────────── */}
-      <section id="experience" className="py-24 bg-muted/30 relative overflow-hidden">
-        <div className="absolute left-[-150px] top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[80px] -z-10 animate-float" />
+                      {/* Pill count badge with fixed height so it never affects button layout height */}
+                      {tab.count !== null && (
+                        <span
+                          className={`text-[10px] leading-tight font-mono h-4 min-w-[18px] px-1.5 inline-flex items-center justify-center rounded-full transition-colors shrink-0 ${
+                            isActive
+                              ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                              : "bg-white/5 text-slate-400 border border-transparent"
+                          }`}
+                        >
+                          {tab.count}
+                        </span>
+                      )}
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <motion.div variants={scaleSpring} className="inline-flex items-center justify-center gap-3 mb-4">
-              <Briefcase className="w-8 h-8 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-display font-bold">Experience</h2>
-            </motion.div>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-20 h-1 bg-primary mx-auto rounded-full"
-            />
-          </motion.div>
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-center text-muted-foreground text-lg font-medium"
-          >
-            Building my first professional experiences — stay tuned.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ── Education ────────────────────────────────────────────────────── */}
-      <section id="education" className="py-24 overflow-hidden relative">
-        <div className="absolute right-[-100px] bottom-0 w-[350px] h-[350px] bg-primary/5 rounded-full blur-[80px] -z-10 animate-float-slow" />
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div variants={scaleSpring} className="inline-flex items-center justify-center gap-4 mb-4">
-              <GraduationCap className="w-10 h-10 text-primary" />
-              <h2 className="text-4xl md:text-5xl font-display font-bold">Education</h2>
-            </motion.div>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-24 h-1.5 bg-primary mx-auto rounded-full"
-            />
-          </motion.div>
-
-          <div className="grid gap-8 max-w-4xl mx-auto">
-            {education.map((edu, index) => (
-              <motion.div
-                key={edu.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -80 : 80, scale: 0.92 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.7, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ x: 8, boxShadow: "0 25px 50px -10px hsl(var(--primary)/0.15)" }}
-                className="bg-card p-8 rounded-3xl border border-border hover:border-primary/50 transition-all group flex flex-col md:flex-row gap-6 items-start md:items-center"
-              >
-                {edu.logoUrl && (
-                  <motion.div
-                    whileHover={{ rotate: [0, -6, 6, 0] }}
-                    transition={{ duration: 0.5 }}
-                    className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-border group-hover:border-primary/30 transition-colors bg-white"
-                  >
-                    <img src={edu.logoUrl} alt={edu.school} className="w-full h-full object-contain p-2" />
-                  </motion.div>
-                )}
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">{edu.school}</h3>
-                  <div className="text-primary font-semibold text-lg">{edu.degree}</div>
-                  <div className="text-sm font-bold text-muted-foreground/60 mt-2 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {edu.startDate} — {edu.endDate}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Certificates ─────────────────────────────────────────────────── */}
-      <section id="certificates" className="py-24 bg-primary/5 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div variants={scaleSpring} className="inline-flex items-center justify-center gap-4 mb-4">
-              <Award className="w-10 h-10 text-primary" />
-              <h2 className="text-4xl md:text-5xl font-display font-bold">Certifications</h2>
-            </motion.div>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-24 h-1.5 bg-primary mx-auto rounded-full"
-            />
-          </motion.div>
-
-          <div className="flex overflow-x-auto pb-12 gap-8 scrollbar-hide px-4 snap-x">
-            {certificates.map((cert, index) => (
-              <motion.div
-                key={cert.id}
-                initial={{ opacity: 0, x: 100, rotate: 4 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: index * 0.15, type: "spring", stiffness: 80, damping: 16 }}
-                whileHover={{ y: -12, scale: 1.03, rotate: -1 }}
-                className="min-w-[300px] md:min-w-[400px] bg-card rounded-3xl border border-border overflow-hidden snap-center group cursor-pointer"
-              >
-                <div className="aspect-[16/10] overflow-hidden relative">
-                  <img
-                    src={cert.imageUrl}
-                    alt={cert.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <span className="text-white font-bold">{cert.name}</span>
-                  </div>
-                </div>
-                <div className="p-8">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{cert.name}</h3>
-                  <p className="text-primary font-semibold">{cert.issuer}</p>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mt-4 font-bold">
-                    <Calendar className="w-4 h-4" />{cert.date}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Projects ─────────────────────────────────────────────────────── */}
-      <section id="projects" className="py-32 relative overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.04, 0.08, 0.04] }}
-          transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-          className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] -z-10"
-        />
-
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8 px-4"
-          >
-            <div className="space-y-4">
-              <SectionHeading className="text-6xl md:text-8xl font-display font-black tracking-tighter">PROJECTS</SectionHeading>
-              <motion.p variants={fadeUp} className="text-xl text-muted-foreground font-medium uppercase tracking-[0.3em] flex items-center gap-4">
-                <span className="w-12 h-1 bg-primary rounded-full" />
-                The Innovation Gallery
-              </motion.p>
+                      {/* Modern Sliding Underline Glider with Glow */}
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeTabUnderline"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 shadow-[0_0_12px_rgba(6,182,212,0.9)] rounded-full"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </nav>
             </div>
-          </motion.div>
 
-          <div className="flex overflow-x-auto pb-20 gap-10 scrollbar-hide px-4 snap-x cursor-grab active:cursor-grabbing">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, x: 120, rotate: 3 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: index * 0.15, type: "spring", stiffness: 60, damping: 14 }}
-                whileHover={{ y: -16, scale: 1.015 }}
-                className="min-w-[350px] md:min-w-[600px] group relative snap-center"
-              >
-                <div className="glass-card overflow-hidden h-full flex flex-col group-hover:border-primary/40 transition-all duration-700">
-                  <div className="aspect-[16/9] relative overflow-hidden">
-                    <motion.img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.6 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                      <div className="flex gap-4">
-                        {project.projectUrl && (
-                          <motion.a
-                            href={project.projectUrl} target="_blank" rel="noopener noreferrer"
-                            whileHover={{ scale: 1.15, rotate: -4 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="p-4 bg-white rounded-2xl text-black hover:bg-primary hover:text-white transition-colors"
-                          >
-                            <ExternalLink className="w-6 h-6" />
-                          </motion.a>
-                        )}
-                        {project.repoUrl && (
-                          <motion.a
-                            href={project.repoUrl} target="_blank" rel="noopener noreferrer"
-                            whileHover={{ scale: 1.15, rotate: 4 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="p-4 bg-white/20 backdrop-blur-md rounded-2xl text-white hover:bg-white hover:text-black transition-colors border border-white/40"
-                          >
-                            <Github className="w-6 h-6" />
-                          </motion.a>
-                        )}
+            {/* ── Tab Content Stage ── */}
+            <div className="flex-1 p-5 sm:p-8 overflow-y-auto max-h-[calc(100vh-180px)] lg:max-h-[760px] scrollbar-thin">
+              <AnimatePresence mode="wait">
+                {/* ─────────────────────────────────────────────────────────────
+                    TAB 1: ABOUT & EXPERTISE
+                   ───────────────────────────────────────────────────────────── */}
+                {activeTab === "about" && (
+                  <motion.div
+                    key="about"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-8"
+                  >
+                    {/* Header Banner */}
+                    <div className="space-y-2">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-mono font-medium">
+                        <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                        Software Developer & Computer Engineer
+                      </div>
+                      <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+                        Practical Full-Stack Development
+                      </h2>
+                      <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+                        Computer Engineering graduate (2026) from General Trias, Cavite. I build clean, reliable web applications using modern web technologies paired with an AI-assistive development workflow to ship quality features efficiently.
+                      </p>
+                    </div>
+
+                    {/* Bento Highlights Grid */}
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-cyan-500/30 transition-all group">
+                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                          <Layers className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-white mb-1">
+                          Full-Stack Development
+                        </h3>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          Building responsive frontends with React and Tailwind, alongside structured backend services using Node.js, PHP, and SQL/NoSQL databases.
+                        </p>
+                      </div>
+
+                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-500/30 transition-all group">
+                        <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                          <Sparkles className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-white mb-1">
+                          AI-Augmented Workflow
+                        </h3>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          Actively utilizing modern AI-assisted workflows and intelligent scaffolding to accelerate development velocity, troubleshoot bugs, and deliver clean, well-tested code.
+                        </p>
+                      </div>
+
+                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-all group">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                          <FolderGit2 className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-base font-bold text-white mb-1">
+                          Hands-On Project Delivery
+                        </h3>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          Proven experience delivering healthcare portals (HanapCare), practicum tracking systems (OJTask), and custom client WordPress sites (Sanctuary).
+                        </p>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="p-10 space-y-6">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-3xl font-display font-black tracking-tight group-hover:text-primary transition-colors">{project.title}</h3>
-                      <motion.span
-                        whileHover={{ scale: 1.2, rotate: -6 }}
-                        className="text-xs font-black px-3 py-1 bg-primary/10 text-primary rounded-full border border-primary/20"
-                      >
-                        0{index + 1}
-                      </motion.span>
-                    </div>
-                    <p className="text-lg text-muted-foreground font-medium leading-relaxed line-clamp-2">{project.description}</p>
-                    <div className="flex flex-wrap gap-3">
-                      {project.technologies.map((tech) => (
-                        <motion.span key={tech} whileHover={{ scale: 1.1, color: "hsl(var(--primary))" }} className="text-xs font-black uppercase tracking-widest text-primary/60">
-                          #{tech}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                    {/* Categorized Tech Stack Grid */}
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2">
+                        <span className="h-4 w-1 bg-cyan-400 rounded-full" />
+                        <h3 className="text-lg font-bold text-white">
+                          Technical Arsenal & Domains
+                        </h3>
+                      </div>
 
-      {/* ── Contact ──────────────────────────────────────────────────────── */}
-      <section id="contact" className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/[0.02] -z-10" />
-        <motion.div
-          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-          transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-          className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-accent/10 rounded-full blur-[80px] -z-10"
-        />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-24 items-center">
-            {/* Left */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              className="space-y-12"
-            >
-              <div className="space-y-6">
-                <SectionHeading className="text-6xl md:text-8xl font-display font-black tracking-tighter">
-                  GET IN<br /><span className="text-primary italic">TOUCH</span>
-                </SectionHeading>
-                <motion.p variants={fadeUp} className="text-2xl text-muted-foreground font-medium leading-relaxed max-w-md">
-                  Whether you're looking for a freelancer, a computer engineer, or a creative partner — let's build something genius.
-                </motion.p>
-              </div>
-
-              <motion.div variants={staggerContainer} className="space-y-8">
-                {[
-                  { icon: MapPin,      label: "Location",  value: profile.location, link: null },
-                  { icon: Send,        label: "Email",     value: profile.email,    link: `mailto:${profile.email}` },
-                  { icon: ExternalLink, label: "Portfolio", value: "View Resume & Case Studies", link: "https://drive.google.com/drive/folders/1lzI8W6XBBq4w9kLcKEtmnTajz3b8-NRv?usp=drive_link" },
-                ].map(({ icon: Icon, label, value, link }) => (
-                  <motion.div key={label} variants={fadeLeft} className="flex items-center gap-6 group">
-                    <motion.div
-                      whileHover={{ scale: 1.15, rotate: 8 }}
-                      className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500"
-                    >
-                      <Icon className="w-8 h-8" />
-                    </motion.div>
-                    <div>
-                      <p className="text-sm font-black uppercase tracking-widest text-muted-foreground/60">{label}</p>
-                      {link
-                        ? <a href={link} className="text-xl font-bold hover:text-primary transition-colors">{value}</a>
-                        : <p className="text-xl font-bold">{value}</p>
-                      }
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {skillsData.map((category) => (
+                          <div
+                            key={category.domain}
+                            className="p-5 rounded-2xl bg-[#091122]/70 border border-white/10 space-y-3"
+                          >
+                            <h4 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+                              {category.domain}
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {category.skills.map((skill) => (
+                                <span
+                                  key={skill}
+                                  className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-200 text-xs font-medium hover:border-cyan-500/40 hover:text-cyan-300 transition-colors"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
+                )}
 
-            {/* Right — form */}
-            <motion.div
-              initial={{ opacity: 0, x: 80, scale: 0.95 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="glass-card p-12 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -z-10" />
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  {[
-                    { key: "name" as const,  label: "Name",  type: "text",  placeholder: "YOUR NAME"     },
-                    { key: "email" as const, label: "Email", type: "email", placeholder: "EMAIL ADDRESS" },
-                  ].map(({ key, label, type, placeholder }) => (
-                    <motion.div key={key} whileFocus={{ scale: 1.01 }} className="space-y-3">
-                      <label className="text-sm font-black uppercase tracking-widest text-muted-foreground/60">{label}</label>
-                      <input
-                        value={form[key]}
-                        onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-                        required
-                        type={type}
-                        className="w-full px-0 py-4 bg-transparent border-b-2 border-primary/20 focus:border-primary transition-all outline-none text-xl font-bold placeholder:text-muted-foreground/30"
-                        placeholder={placeholder}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
+                {/* ─────────────────────────────────────────────────────────────
+                    TAB 2: PROJECTS GALLERY (Filterable & Interactive Lightbox)
+                   ───────────────────────────────────────────────────────────── */}
+                {activeTab === "projects" && (
+                  <motion.div
+                    key="projects"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-6"
+                  >
+                    {/* Filter Pills Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                          Selected Works & Systems
+                        </h2>
+                        <p className="text-xs text-slate-400">
+                          Click any card to inspect full landing page showcase & details.
+                        </p>
+                      </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-black uppercase tracking-widest text-muted-foreground/60">Message</label>
-                  <textarea
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    required
-                    rows={4}
-                    className="w-full px-0 py-4 bg-transparent border-b-2 border-primary/20 focus:border-primary transition-all outline-none text-xl font-bold placeholder:text-muted-foreground/30 resize-none"
-                    placeholder="YOUR VISION..."
-                  />
-                </div>
+                      {/* Category Filters */}
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {["All", "Full-Stack", "Healthcare & Enterprise", "WordPress & Client"].map((f) => (
+                          <button
+                            key={f}
+                            onClick={() => setProjectFilter(f)}
+                            className={`px-3 py-1 rounded-full text-xs font-mono transition-all ${
+                              projectFilter === f
+                                ? "bg-cyan-500 text-black font-bold shadow-md shadow-cyan-500/20"
+                                : "bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/5"
+                            }`}
+                          >
+                            {f}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-                <motion.button
-                  type="submit"
-                  disabled={formStatus === "sending"}
-                  whileHover={formStatus === "idle" ? { scale: 1.03, y: -3, boxShadow: "0 20px 40px -8px hsl(var(--primary)/0.4)" } : {}}
-                  whileTap={{ scale: 0.97 }}
-                  className={`w-full py-6 rounded-2xl font-black text-xl tracking-tighter flex items-center justify-center gap-4 transition-all ${
-                    formStatus === "success"
-                      ? "bg-green-500 text-white"
-                      : formStatus === "error"
-                      ? "bg-red-500 text-white"
-                      : "bg-primary text-primary-foreground"
-                  } disabled:opacity-70 disabled:cursor-not-allowed`}
-                >
-                  {formStatus === "sending" && <><span className="animate-spin w-6 h-6 border-2 border-white/40 border-t-white rounded-full inline-block" /> SENDING...</>}
-                  {formStatus === "success" && <>✓ MESSAGE SENT!</>}
-                  {formStatus === "error" && <>✗ FAILED — TRY AGAIN</>}
-                  {formStatus === "idle" && <>TRANSMIT MESSAGE <Send className="w-6 h-6" /></>}
-                </motion.button>
-              </form>
-            </motion.div>
-          </div>
+                    {/* 2-Column Bento Project Grid */}
+                    <div className="grid md:grid-cols-2 gap-5">
+                      {filteredProjects.map((project) => (
+                        <div
+                          key={project.id}
+                          className="group rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-cyan-500/40 transition-all duration-300 overflow-hidden flex flex-col shadow-lg hover:shadow-cyan-500/10"
+                        >
+                          {/* Image Thumbnail with Overlay */}
+                          <div
+                            onClick={() => setSelectedProject(project)}
+                            className="aspect-[16/9] w-full bg-black/60 relative overflow-hidden cursor-pointer"
+                          >
+                            <img
+                              src={project.imageUrl}
+                              alt={project.title}
+                              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#091122] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity" />
+
+                            {/* Inspect Badge on Hover */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
+                              <span className="px-3 py-1.5 rounded-full bg-cyan-500 text-black text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                                <Maximize2 className="w-3.5 h-3.5" />
+                                Inspect Showcase
+                              </span>
+                            </div>
+
+                            {/* Category Tag */}
+                            {project.category && (
+                              <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[10px] font-mono text-cyan-300 font-semibold">
+                                {project.category}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Card Content */}
+                          <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                            <div className="space-y-2">
+                              <h3
+                                onClick={() => setSelectedProject(project)}
+                                className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors cursor-pointer flex items-center justify-between"
+                              >
+                                {project.title}
+                                <Maximize2 className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                              </h3>
+                              <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
+                                {project.description}
+                              </p>
+                            </div>
+
+                            {/* Technologies */}
+                            <div className="flex flex-wrap gap-1.5 pt-1">
+                              {project.technologies.slice(0, 4).map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-cyan-300/80 border border-white/5"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                              {project.technologies.length > 4 && (
+                                <span className="px-1.5 py-0.5 text-[10px] font-mono text-slate-400">
+                                  +{project.technologies.length - 4}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                              {project.projectUrl && (
+                                <a
+                                  href={project.projectUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex-1 py-1.5 px-3 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                                >
+                                  <ExternalLink className="w-3.5 h-3.5" />
+                                  Live Demo
+                                </a>
+                              )}
+                              {project.repoUrl && (
+                                <a
+                                  href={project.repoUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="py-1.5 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                                >
+                                  <Github className="w-3.5 h-3.5" />
+                                  Code
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* ─────────────────────────────────────────────────────────────
+                    TAB 3: EXPERIENCE & EDUCATION
+                   ───────────────────────────────────────────────────────────── */}
+                {activeTab === "experience" && (
+                  <motion.div
+                    key="experience"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-8"
+                  >
+                    <div className="space-y-1">
+                      <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                        Academic Credentials & Career Milestones
+                      </h2>
+                      <p className="text-xs text-slate-400">
+                        Formal engineering foundations and active software development.
+                      </p>
+                    </div>
+
+                    {/* Academic Timeline */}
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 text-sm font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                        <GraduationCap className="w-4 h-4" />
+                        Education Journey
+                      </div>
+
+                      <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-cyan-400 before:via-blue-500 before:to-slate-700">
+                        {education.map((edu) => (
+                          <div key={edu.id} className="relative group">
+                            {/* Glowing timeline node */}
+                            <span className="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-[#0c1322] border-2 border-cyan-400 group-hover:scale-125 transition-transform shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
+
+                            <div className="p-5 rounded-2xl bg-[#091122]/80 border border-white/10 hover:border-cyan-500/30 transition-all">
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                <div>
+                                  <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
+                                    {edu.school}
+                                  </h3>
+                                  <p className="text-xs text-cyan-400 font-medium">
+                                    {edu.degree}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                                    {edu.badge}
+                                  </span>
+                                  <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
+                                    <Calendar className="w-3 h-3" />
+                                    {edu.period}
+                                  </span>
+                                </div>
+                              </div>
+                              <p className="text-xs text-slate-400 leading-relaxed">
+                                {edu.details}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Practical Experience Highlights */}
+                    <div className="space-y-4 pt-2">
+                      <div className="flex items-center gap-2 text-sm font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                        <Briefcase className="w-4 h-4" />
+                        Professional & Technical Experience
+                      </div>
+
+                      {/* Incoming TSR Role */}
+                      <div className="p-6 rounded-2xl bg-[#091122]/90 border border-cyan-500/30 space-y-3 relative overflow-hidden shadow-lg">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-base font-bold text-white">
+                                Technical Support Representative - Industry Automation
+                              </h3>
+                              <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
+                                Incoming
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-400 font-mono mt-0.5">
+                              Starting October 2026
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-medium self-start sm:self-auto">
+                            Offer Accepted
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-300 leading-relaxed">
+                          Selected to deliver technical diagnostics, systematic troubleshooting, customer issue resolution, and system ticket handling under enterprise SLA standards.
+                        </p>
+                      </div>
+
+                      {/* Freelance Experience */}
+                      <div className="p-6 rounded-2xl bg-gradient-to-br from-[#091122] to-[#0d162d] border border-white/10 space-y-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div>
+                            <h3 className="text-base font-bold text-white">
+                              Freelance Full-Stack Developer & Software Builder
+                            </h3>
+                            <p className="text-xs text-slate-400 font-mono">
+                              Remote / Cavite, Philippines
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-medium self-start sm:self-auto">
+                            2026
+                          </span>
+                        </div>
+                        <ul className="space-y-2 text-xs text-slate-300 leading-relaxed list-disc list-inside">
+                          <li>
+                            Built and deployed hospital management platform (HanapCare) integrating patient intake, EMR records, and room management.
+                          </li>
+                          <li>
+                            Developed OJTask, centralizing student internship logging, attendance tracking, and MOA document storage.
+                          </li>
+                          <li>
+                            Created bespoke client websites on WordPress with custom layouts and performance optimization (Sanctuary).
+                          </li>
+                          <li>
+                            Utilized AI-assistive coding workflows to rapidly prototype, debug, and deliver client requirements.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* ─────────────────────────────────────────────────────────────
+                    TAB 4: CERTIFICATES & CREDENTIALS
+                   ───────────────────────────────────────────────────────────── */}
+                {activeTab === "certificates" && (
+                  <motion.div
+                    key="certificates"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-6"
+                  >
+                    <div className="space-y-1">
+                      <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                        Verified Certifications & Accreditations
+                      </h2>
+                      <p className="text-xs text-slate-400">
+                        Click on any certificate to preview full resolution credential.
+                      </p>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {certificates.map((cert) => (
+                        <div
+                          key={cert.id}
+                          onClick={() => setSelectedCert(cert)}
+                          className="group rounded-2xl bg-[#091122]/80 border border-white/10 hover:border-emerald-500/40 transition-all duration-300 overflow-hidden cursor-pointer flex flex-col shadow-lg"
+                        >
+                          <div className="aspect-[16/10] bg-black/60 relative overflow-hidden">
+                            <img
+                              src={cert.imageUrl}
+                              alt={cert.name}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#091122] via-transparent to-transparent opacity-80" />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                              <span className="px-3 py-1 rounded-full bg-emerald-500 text-black text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                                <Maximize2 className="w-3.5 h-3.5" />
+                                Zoom Credential
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
+                            <div>
+                              <h3 className="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors line-clamp-2">
+                                {cert.name}
+                              </h3>
+                              <p className="text-xs text-emerald-400 font-mono mt-1 font-semibold">
+                                {cert.issuer}
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-1 text-[11px] text-slate-500 font-mono pt-2 border-t border-white/5">
+                              <Calendar className="w-3 h-3" />
+                              {cert.date}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* ─────────────────────────────────────────────────────────────
+                    TAB 5: PROFESSIONAL CONTACT & INQUIRIES
+                   ───────────────────────────────────────────────────────────── */}
+                {activeTab === "contact" && (
+                  <motion.div
+                    key="contact"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-6"
+                  >
+                    <div className="space-y-1">
+                      <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                        Get in Touch
+                      </h2>
+                      <p className="text-xs text-slate-400">
+                        Interested in working together, discussing a role, or inquiring about a project? Let's connect.
+                      </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-5 gap-6">
+                      {/* Left Contact Methods Column */}
+                      <div className="lg:col-span-2 space-y-3">
+                        {/* Direct Email Card */}
+                        <div className="p-4 rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-cyan-500/30 transition-all space-y-1">
+                          <div className="text-[10px] font-mono uppercase text-cyan-400 font-bold tracking-wider">
+                            Direct Email
+                          </div>
+                          <div className="flex items-center justify-between gap-2">
+                            <a
+                              href={`mailto:${profile.email}`}
+                              className="text-sm font-semibold text-white hover:text-cyan-300 transition-colors break-all"
+                            >
+                              {profile.email}
+                            </a>
+                            <button
+                              onClick={handleCopyEmail}
+                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white transition-colors shrink-0"
+                              title="Copy email address"
+                            >
+                              {copiedEmail ? (
+                                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                              ) : (
+                                <Copy className="w-3.5 h-3.5" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Phone / Mobile Card */}
+                        <div className="p-4 rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-cyan-500/30 transition-all space-y-1">
+                          <div className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                            Phone / Mobile
+                          </div>
+                          <a
+                            href={`tel:${profile.phone.replace(/\s+/g, "")}`}
+                            className="text-sm font-semibold text-white hover:text-cyan-300 transition-colors block font-mono"
+                          >
+                            {profile.phone}
+                          </a>
+                        </div>
+
+                        {/* Location & Timezone Card */}
+                        <div className="p-4 rounded-2xl bg-[#091122]/90 border border-white/10 space-y-1">
+                          <div className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                            Location & Local Time
+                          </div>
+                          <p className="text-xs text-slate-300 font-medium">{profile.location}</p>
+                          <div className="flex items-center gap-1.5 pt-1 text-[11px] text-cyan-300 font-mono">
+                            <Clock className="w-3 h-3 text-cyan-400" />
+                            <span>{manilaTime ? `${manilaTime} PHT (UTC+8)` : "Manila Time (UTC+8)"}</span>
+                          </div>
+                        </div>
+
+                        {/* Response SLA Indicator */}
+                        <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300 flex items-center gap-2.5">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                          <span className="text-[11px]">
+                            <strong>Quick Turnaround:</strong> Inquiries typically answered within 24 hours.
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Right Form Column */}
+                      <div className="lg:col-span-3">
+                        <form
+                          onSubmit={handleSubmitContact}
+                          className="p-6 rounded-2xl bg-[#091122]/90 border border-white/10 space-y-4 shadow-xl"
+                        >
+                          <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-semibold text-slate-300">
+                                Your Name
+                              </label>
+                              <input
+                                type="text"
+                                required
+                                value={form.name}
+                                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                                placeholder="e.g. Alex Morgan"
+                                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs sm:text-sm focus:border-cyan-400 focus:outline-none transition-colors placeholder-slate-500"
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-semibold text-slate-300">
+                                Email Address
+                              </label>
+                              <input
+                                type="email"
+                                required
+                                value={form.email}
+                                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                placeholder="alex@company.com"
+                                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs sm:text-sm focus:border-cyan-400 focus:outline-none transition-colors placeholder-slate-500"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <label className="text-xs font-semibold text-slate-300">
+                              Message or Project Scope
+                            </label>
+                            <textarea
+                              rows={4}
+                              required
+                              value={form.message}
+                              onChange={(e) => setForm({ ...form, message: e.target.value })}
+                              placeholder="Please describe your project, timeline, or position details..."
+                              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs sm:text-sm focus:border-cyan-400 focus:outline-none transition-colors resize-none placeholder-slate-500"
+                            />
+                          </div>
+
+                          <button
+                            type="submit"
+                            disabled={formStatus === "sending"}
+                            className={`w-full py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${
+                              formStatus === "success"
+                                ? "bg-emerald-500 text-black shadow-lg shadow-emerald-500/20"
+                                : formStatus === "error"
+                                ? "bg-rose-500 text-white"
+                                : "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
+                            } disabled:opacity-60 cursor-pointer`}
+                          >
+                            {formStatus === "sending" && (
+                              <>
+                                <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                                Sending Message...
+                              </>
+                            )}
+                            {formStatus === "success" && (
+                              <>
+                                <Check className="w-4 h-4" />
+                                Message Sent Successfully!
+                              </>
+                            )}
+                            {formStatus === "error" && <>Sending Failed — Please Try Again or Email Directly</>}
+                            {formStatus === "idle" && (
+                              <>
+                                <Send className="w-4 h-4" />
+                                Send Message
+                              </>
+                            )}
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </section>
         </div>
-      </section>
+      </main>
 
-      <Footer />
+      {/* ── Outer Margin Bottom Footer ── */}
+      <footer className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-center text-xs text-slate-400 font-mono border-t border-white/5">
+        <p className="text-center">
+          © {new Date().getFullYear()} {profile.preferredName}. All rights reserved.
+        </p>
+      </footer>
+
+      {/* ── Modals ── */}
+      <ProjectLightbox
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+      <CertificateModal
+        certificate={selectedCert}
+        onClose={() => setSelectedCert(null)}
+      />
     </div>
   );
 }

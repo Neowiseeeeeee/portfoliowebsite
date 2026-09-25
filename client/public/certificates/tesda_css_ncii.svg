@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1150" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="blueBar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <pattern id="guilloche" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 0,20 Q 10,0 20,20 T 40,20" fill="none" stroke="#e2e8f0" stroke-width="0.75" opacity="0.4"/>
+      <path d="M 20,0 Q 40,10 20,20 T 20,40" fill="none" stroke="#e2e8f0" stroke-width="0.75" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="850" height="1150" fill="url(#bg)"/>
+  <rect x="25" y="25" width="800" height="1100" fill="url(#guilloche)"/>
+
+  <!-- Ornate Border -->
+  <rect x="25" y="25" width="800" height="1100" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <rect x="33" y="33" width="784" height="1084" fill="none" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <rect x="38" y="38" width="774" height="1074" fill="none" stroke="#1e3a8a" stroke-width="1"/>
+
+  <!-- Corner Accents -->
+  <polygon points="25,25 65,25 25,65" fill="#1e3a8a"/>
+  <polygon points="825,25 785,25 825,65" fill="#1e3a8a"/>
+  <polygon points="25,1125 65,1125 25,1085" fill="#1e3a8a"/>
+  <polygon points="825,1125 785,1125 825,1085" fill="#1e3a8a"/>
+
+  <!-- TESDA Seal Emblem -->
+  <g transform="translate(425, 100)">
+    <circle r="36" fill="#1e40af" stroke="#f59e0b" stroke-width="3"/>
+    <circle r="30" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <!-- Gear cog representation -->
+    <path d="M-10,-20 L10,-20 L8,-12 L15,-8 L22,-14 L28,-6 L20,-2 L22,7 L30,6 L30,16 L21,16 L17,23 L24,29 L17,35 L11,28 L3,30 L0,38 L-10,38 L-8,30 L-16,27 L-23,33 L-29,26 L-22,20 L-24,12 L-32,10 L-30,0 L-22,-2 L-21,-11 L-28,-17 L-21,-24 L-14,-18 L-7,-22 Z" fill="#ffffff" opacity="0.9"/>
+    <circle r="12" fill="#1e3a8a"/>
+    <polygon points="0,-8 5,6 -6,-3 6,-3 -5,6" fill="#f59e0b"/>
+  </g>
+
+  <!-- Headers -->
+  <text x="425" y="165" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#334155" letter-spacing="1.5">Republic of the Philippines</text>
+  <text x="425" y="188" font-family="'Arial Black', Arial, sans-serif" font-size="16" font-weight="900" text-anchor="middle" fill="#0f172a" letter-spacing="1">TECHNICAL EDUCATION AND SKILLS DEVELOPMENT AUTHORITY</text>
+
+  <!-- Big Title Banner -->
+  <rect x="100" y="215" width="650" height="42" rx="4" fill="#fef3c7" stroke="#fbbf24" stroke-width="1"/>
+  <text x="425" y="244" font-family="'Arial Black', Arial, sans-serif" font-size="26" font-weight="900" text-anchor="middle" fill="#1d4ed8" letter-spacing="3">NATIONAL CERTIFICATE II</text>
+
+  <text x="425" y="282" font-family="'Times New Roman', serif" font-style="italic" font-size="17" text-anchor="middle" fill="#475569">in</text>
+  <text x="425" y="318" font-family="'Arial Black', Arial, sans-serif" font-size="25" font-weight="900" text-anchor="middle" fill="#0f172a" letter-spacing="1">COMPUTER SYSTEMS SERVICING</text>
+
+  <text x="425" y="354" font-family="'Times New Roman', serif" font-style="italic" font-size="16" text-anchor="middle" fill="#64748b">is hereby awarded to</text>
+
+  <!-- Awardee Name -->
+  <line x1="160" y1="410" x2="690" y2="410" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="425" y="400" font-family="'Arial Black', Arial, sans-serif" font-size="32" font-weight="900" text-anchor="middle" fill="#0f172a" letter-spacing="1.5">CHAELVIN B. BOLANTE</text>
+
+  <!-- Preamble -->
+  <text x="425" y="440" font-family="'Times New Roman', serif" font-style="italic" font-size="14.5" text-anchor="middle" fill="#334155">for having completed the competency requirements under the Philippine TVET</text>
+  <text x="425" y="460" font-family="'Times New Roman', serif" font-style="italic" font-size="14.5" text-anchor="middle" fill="#334155">Competency Assessment and Certification System in the following units of competency:</text>
+
+  <!-- Competencies Box -->
+  <g transform="translate(70, 485)">
+    <!-- Column 1 -->
+    <g transform="translate(0, 0)">
+      <text x="0" y="15" font-family="monospace" font-size="10.5" font-weight="bold" fill="#64748b">Unit Code   Unit Title</text>
+      <text x="0" y="32" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a">BASIC COMPETENCIES</text>
+      <text x="0" y="48" font-family="monospace" font-size="9" fill="#334155">500311105   Participate in workplace communication</text>
+      <text x="0" y="62" font-family="monospace" font-size="9" fill="#334155">500311106   Work in a team environment</text>
+      <text x="0" y="76" font-family="monospace" font-size="9" fill="#334155">500311107   Practice career professionalism</text>
+      <text x="0" y="90" font-family="monospace" font-size="9" fill="#334155">500311108   Practice occupational health and safety procedures</text>
+
+      <text x="0" y="120" font-family="monospace" font-size="10.5" font-weight="bold" fill="#64748b">Unit Code   Unit Title</text>
+      <text x="0" y="137" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0f172a">COMMON COMPETENCIES</text>
+      <text x="0" y="153" font-family="monospace" font-size="9" fill="#334155">ELC315202   Apply quality standards</text>
+      <text x="0" y="167" font-family="monospace" font-size="9" fill="#334155">ELC311203   Perform computer operations</text>
+      <text x="0" y="181" font-family="monospace" font-size="9" fill="#334155">ELC311201   Perform mensuration and calculation</text>
+      <text x="0" y="195" font-family="monospace" font-size="9" fill="#334155">ELC311202   Prepare and interpret technical drawing</text>
+      <text x="0" y="209" font-family="monospace" font-size="9" fill="#334155">ELC724201   Use hand tools</text>
+      <text x="0" y="223" font-family="monospace" font-size="9" fill="#334155">ELC724202   Terminate and connect electrical wiring &amp; circuits</text>
+      <text x="0" y="237" font-family="monospace" font-size="9" fill="#334155">ELC724205   Test electronic components</text>
+    </g>
+
+    <!-- Column 2: Core Competencies -->
+    <g transform="translate(360, 0)">
+      <text x="0" y="15" font-family="monospace" font-size="10.5" font-weight="bold" fill="#64748b">Unit Code   Unit Title</text>
+      <text x="0" y="32" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1e40af">CORE COMPETENCIES</text>
+      <rect x="-5" y="38" width="350" height="90" fill="#eff6ff" stroke="#bfdbfe" rx="4"/>
+      <text x="5" y="56" font-family="monospace" font-size="9.5" font-weight="bold" fill="#1e3a8a">ELC724331  Install &amp; configure computer systems</text>
+      <text x="5" y="74" font-family="monospace" font-size="9.5" font-weight="bold" fill="#1e3a8a">ELC724332  Set-up Computer Networks</text>
+      <text x="5" y="92" font-family="monospace" font-size="9.5" font-weight="bold" fill="#1e3a8a">ELC724333  Set-up Computer Servers</text>
+      <text x="5" y="110" font-family="monospace" font-size="9.5" font-weight="bold" fill="#1e3a8a">ELC724334  Maintain &amp; Repair Computer Systems/Networks</text>
+    </g>
+  </g>
+
+  <!-- Photo Box Placeholder -->
+  <g transform="translate(70, 840)">
+    <rect width="90" height="110" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="45" cy="40" r="22" fill="#cbd5e1"/>
+    <path d="M 20,95 Q 45,65 70,95 Z" fill="#cbd5e1"/>
+    <text x="45" y="105" font-family="Arial" font-size="8" text-anchor="middle" fill="#64748b">PHOTO ID</text>
+  </g>
+
+  <!-- Signatures & Validity -->
+  <g transform="translate(480, 850)">
+    <!-- Signature Line -->
+    <path d="M -50,-10 Q 0,-35 40,-5 Q 80,10 120,-20 Q 60,5 0,0" fill="none" stroke="#1e293b" stroke-width="2"/>
+    <line x1="-80" y1="20" x2="160" y2="20" stroke="#475569" stroke-width="1"/>
+    <text x="40" y="38" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0f172a">JOSE FRANCISCO "KIKO" B. BENITEZ</text>
+    <text x="40" y="55" font-family="Arial, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#475569" letter-spacing="1">DIRECTOR GENERAL</text>
+  </g>
+
+  <!-- Dates -->
+  <g transform="translate(580, 770)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="11" fill="#475569">Issued on: <tspan font-weight="bold" fill="#0f172a">January 22, 2026</tspan></text>
+    <text x="0" y="18" font-family="Arial, sans-serif" font-size="11" fill="#475569">Valid until: <tspan font-weight="bold" fill="#16a34a">January 21, 2031</tspan></text>
+  </g>
+
+  <!-- Certificate Number & QR Code -->
+  <g transform="translate(70, 990)">
+    <text x="0" y="15" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#0f172a">Certificate No: 26131402001154</text>
+  </g>
+
+  <!-- QR Code Mock Graphic -->
+  <g transform="translate(700, 870)">
+    <rect width="70" height="70" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+    <rect x="6" y="6" width="18" height="18" fill="#1e3a8a"/>
+    <rect x="46" y="6" width="18" height="18" fill="#1e3a8a"/>
+    <rect x="6" y="46" width="18" height="18" fill="#1e3a8a"/>
+    <rect x="30" y="10" width="10" height="10" fill="#1e3a8a"/>
+    <rect x="30" y="30" width="10" height="10" fill="#1e3a8a"/>
+    <rect x="10" y="30" width="10" height="10" fill="#1e3a8a"/>
+    <rect x="50" y="30" width="10" height="10" fill="#1e3a8a"/>
+    <rect x="30" y="50" width="10" height="10" fill="#1e3a8a"/>
+    <rect x="50" y="50" width="10" height="10" fill="#1e3a8a"/>
+  </g>
+</svg>
