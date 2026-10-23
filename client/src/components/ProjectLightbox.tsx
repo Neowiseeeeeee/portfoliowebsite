@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Github, Sparkles, Layers } from "lucide-react";
+import { X, ExternalLink, Github, Sparkles, Layers, Lock } from "lucide-react";
 import { useEffect } from "react";
 import { playOpenModalSound } from "@/lib/audio";
+import { KaelCosmicCanvas } from "@/components/KaelCosmicCanvas";
 
 export interface ProjectData {
   id: number;
@@ -14,6 +15,7 @@ export interface ProjectData {
   projectUrl?: string;
   repoUrl?: string;
   featured?: boolean;
+  isPrivate?: boolean;
 }
 
 interface ProjectLightboxProps {
@@ -73,12 +75,16 @@ export function ProjectLightbox({ project, onClose }: ProjectLightboxProps) {
 
             {/* Project Image Showcase */}
             <div className="relative w-full aspect-[16/9] max-h-[460px] bg-black/60 overflow-hidden border-b border-white/10 group">
-              <img
-                src={project.imageUrl}
-                alt={project.title}
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1120] via-transparent to-transparent opacity-80" />
+              {project.id === 7 || project.title === "KAEL" ? (
+                <KaelCosmicCanvas className="w-full h-full" />
+              ) : (
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1120] via-transparent to-transparent opacity-80 pointer-events-none" />
               
               {/* Category pill */}
               {project.category && (
@@ -103,7 +109,12 @@ export function ProjectLightbox({ project, onClose }: ProjectLightboxProps) {
 
                 {/* Action Links */}
                 <div className="flex items-center gap-3 shrink-0 pt-2 md:pt-0">
-                  {project.projectUrl && (
+                  {project.isPrivate ? (
+                    <div className="px-4 py-2.5 rounded-xl bg-white/[0.05] border border-cyan-500/30 text-cyan-300 font-mono text-xs font-semibold flex items-center gap-2 select-none shadow-sm shadow-cyan-500/10">
+                      <Lock className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Private System • Personal Access Only</span>
+                    </div>
+                  ) : project.projectUrl ? (
                     <a
                       href={project.projectUrl}
                       target="_blank"
@@ -113,7 +124,7 @@ export function ProjectLightbox({ project, onClose }: ProjectLightboxProps) {
                       <ExternalLink className="w-4 h-4" />
                       Live Demo
                     </a>
-                  )}
+                  ) : null}
                   {project.repoUrl && (
                     <a
                       href={project.repoUrl}

@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" fill="none">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060913" />
+      <stop offset="50%" stop-color="#0a1022" />
+      <stop offset="100%" stop-color="#080c18" />
+    </linearGradient>
+    <linearGradient id="accent-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="accent-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111a33" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0c1326" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="chart-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  {/* Main background */}
+  <rect width="1200" height="675" fill="url(#bg-grad)" />
+
+  {/* Ambient glowing radial orbs */}
+  <circle cx="200" cy="150" r="180" fill="#38bdf8" opacity="0.08" filter="url(#glow)" />
+  <circle cx="1050" cy="480" r="220" fill="#6366f1" opacity="0.07" filter="url(#glow)" />
+  <circle cx="650" cy="280" r="140" fill="#06b6d4" opacity="0.06" filter="url(#glow)" />
+
+  {/* Window Frame / App Shell */}
+  <rect x="30" y="30" width="1140" height="615" rx="18" fill="#080e1e" stroke="#1e293b" stroke-width="1.5" />
+
+  {/* Top App Bar */}
+  <rect x="30" y="30" width="1140" height="52" rx="18" fill="#0c152a" stroke="#1e293b" stroke-width="1" />
+  <rect x="30" y="66" width="1140" height="16" fill="#0c152a" />
+  
+  {/* Window controls */}
+  <circle cx="56" cy="56" r="6" fill="#ef4444" opacity="0.85" />
+  <circle cx="76" cy="56" r="6" fill="#f59e0b" opacity="0.85" />
+  <circle cx="96" cy="56" r="6" fill="#10b981" opacity="0.85" />
+
+  {/* App Title & Badge */}
+  <text x="124" y="61" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" letter-spacing="1">KAEL</text>
+  <rect x="180" y="46" width="138" height="20" rx="10" fill="#38bdf8" fill-opacity="0.12" stroke="#38bdf8" stroke-opacity="0.3" />
+  <text x="190" y="60" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="600">AI PERSONAL SYSTEM</text>
+
+  {/* AI Model Badge in Header */}
+  <rect x="880" y="45" width="160" height="22" rx="11" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <circle cx="896" cy="56" r="4" fill="#10b981" />
+  <text x="908" y="60" fill="#94a3b8" font-family="monospace" font-size="11">Gemini 2.5 • Active</text>
+
+  {/* User Avatar circle */}
+  <circle cx="1066" cy="56" r="14" fill="#38bdf8" opacity="0.3" />
+  <text x="1066" y="60" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">CB</text>
+
+  {/* ── Left Sidebar Navigation ── */}
+  <rect x="30" y="82" width="210" height="563" fill="#0a1224" stroke="#1e293b" stroke-width="1" />
+  
+  {/* Nav Items */}
+  {/* Nav Item: Assistant (Active) */}
+  <rect x="44" y="104" width="182" height="38" rx="8" fill="#38bdf8" fill-opacity="0.14" stroke="#38bdf8" stroke-opacity="0.4" />
+  <circle cx="64" cy="123" r="5" fill="#38bdf8" />
+  <text x="80" y="128" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="600">Assistant Chat</text>
+
+  {/* Nav Item: Tasks */}
+  <rect x="44" y="152" width="182" height="38" rx="8" fill="transparent" />
+  <circle cx="64" cy="171" r="4" fill="#64748b" />
+  <text x="80" y="176" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Tasks &amp; Projects</text>
+
+  {/* Nav Item: Finances */}
+  <rect x="44" y="200" width="182" height="38" rx="8" fill="transparent" />
+  <circle cx="64" cy="219" r="4" fill="#64748b" />
+  <text x="80" y="224" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Financial Hub</text>
+
+  {/* Nav Item: Calendar */}
+  <rect x="44" y="248" width="182" height="38" rx="8" fill="transparent" />
+  <circle cx="64" cy="267" r="4" fill="#64748b" />
+  <text x="80" y="272" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Calendar &amp; Events</text>
+
+  {/* Nav Item: Gmail Feed */}
+  <rect x="44" y="296" width="182" height="38" rx="8" fill="transparent" />
+  <circle cx="64" cy="315" r="4" fill="#64748b" />
+  <text x="80" y="320" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Gmail Sync</text>
+
+  {/* Sidebar Storage Widget */}
+  <rect x="44" y="525" width="182" height="96" rx="12" fill="#0f1930" stroke="#1e293b" />
+  <text x="58" y="548" fill="#64748b" font-family="system-ui, sans-serif" font-size="11" font-weight="600" text-transform="uppercase">Cloud Firestore</text>
+  <text x="58" y="568" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Encrypted Scopes</text>
+  <rect x="58" y="582" width="154" height="6" rx="3" fill="#1e293b" />
+  <rect x="58" y="582" width="98" height="6" rx="3" fill="url(#accent-cyan)" />
+  <text x="58" y="605" fill="#38bdf8" font-family="monospace" font-size="10">Active Sync • User Guard</text>
+
+  {/* ── Center Conversational AI Interface ── */}
+  {/* Center Card Container */}
+  <rect x="260" y="104" width="530" height="518" rx="14" fill="url(#card-grad)" stroke="#1e293b" />
+  
+  {/* Assistant Header in Card */}
+  <text x="286" y="138" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="700">KAEL Assistant Console</text>
+  <text x="286" y="156" fill="#64748b" font-family="monospace" font-size="11">Google Gemini API • Multi-tool Workspace</text>
+  <line x1="286" y1="168" x2="764" y2="168" stroke="#1e293b" />
+
+  {/* Assistant Chat Message 1 (AI) */}
+  <rect x="286" y="184" width="450" height="74" rx="12" fill="#0f1934" stroke="#334155" stroke-opacity="0.4" />
+  <circle cx="310" cy="206" r="10" fill="#38bdf8" fill-opacity="0.2" />
+  <text x="310" y="210" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">K</text>
+  <text x="330" y="206" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Daily Briefing Ready:</text>
+  <text x="330" y="226" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11.5">You have 3 sprint milestones due today, 2 recurring bills logged,</text>
+  <text x="330" y="244" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11.5">and an upcoming meeting in Google Calendar at 2:30 PM.</text>
+
+  {/* Assistant Chat Message 2 (User) */}
+  <rect x="390" y="272" width="346" height="42" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-opacity="0.3" />
+  <text x="408" y="298" fill="#f1f5f9" font-family="system-ui, sans-serif" font-size="12">Summarize my expense trends for this week.</text>
+
+  {/* Assistant Chat Message 3 (AI with breakdown) */}
+  <rect x="286" y="328" width="450" height="152" rx="12" fill="#0f1934" stroke="#38bdf8" stroke-opacity="0.3" />
+  <circle cx="310" cy="350" r="10" fill="#38bdf8" fill-opacity="0.2" />
+  <text x="310" y="354" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">K</text>
+  <text x="330" y="350" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Weekly Expense Digest</text>
+  <text x="330" y="372" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Total Disbursed: ₱4,250.00 (within 82% budget threshold)</text>
+  <text x="330" y="394" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Primary Category: Infrastructure Hosting &amp; Telecom</text>
+  <text x="330" y="416" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11.5">• Verified in Firestore Ledger with zero duplicate entries.</text>
+  {/* Voice Briefing Waveform Pill */}
+  <rect x="330" y="432" width="210" height="28" rx="14" fill="#082f49" stroke="#0284c7" stroke-width="0.8" />
+  <circle cx="348" cy="446" r="6" fill="#38bdf8" />
+  <text x="362" y="450" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Play Audio Briefing (TTS)</text>
+
+  {/* Quick Input Bar at Bottom */}
+  <rect x="286" y="556" width="450" height="46" rx="23" fill="#0c1428" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2" />
+  <text x="312" y="584" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">Ask KAEL to schedule, log expense, or draft email...</text>
+  <rect x="686" y="562" width="40" height="34" rx="17" fill="url(#accent-cyan)" />
+  <path d="M702 573 L714 579 L702 585 Z" fill="#040814" />
+
+  {/* ── Right Dashboard Analytics Panel ── */}
+  {/* Financial Card */}
+  <rect x="810" y="104" width="340" height="248" rx="14" fill="url(#card-grad)" stroke="#1e293b" />
+  <text x="830" y="136" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Financial Ledger &amp; Budget</text>
+  <text x="830" y="152" fill="#64748b" font-family="monospace" font-size="10">Cloud Firestore Realtime Sync</text>
+  
+  {/* Big Metric */}
+  <text x="830" y="188" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="24" font-weight="900">₱28,450.00</text>
+  <text x="830" y="206" fill="#10b981" font-family="monospace" font-size="11">▲ +14.2% Savings Allocation</text>
+
+  {/* Mini Chart path */}
+  <path d="M 830 290 Q 860 270 890 275 T 950 250 T 1010 260 T 1070 230 T 1120 220 L 1120 300 L 830 300 Z" fill="url(#chart-grad)" />
+  <path d="M 830 290 Q 860 270 890 275 T 950 250 T 1010 260 T 1070 230 T 1120 220" stroke="#38bdf8" stroke-width="2.5" fill="none" />
+  
+  {/* Progress Bar for Savings */}
+  <text x="830" y="324" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Monthly Budget Target: 78% achieved</text>
+  <rect x="830" y="332" width="298" height="6" rx="3" fill="#1e293b" />
+  <rect x="830" y="332" width="232" height="6" rx="3" fill="url(#accent-cyan)" />
+
+  {/* Tasks & Integrations Card */}
+  <rect x="810" y="372" width="340" height="250" rx="14" fill="url(#card-grad)" stroke="#1e293b" />
+  <text x="830" y="402" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Workspace Integrations</text>
+  <text x="830" y="418" fill="#64748b" font-family="monospace" font-size="10">Google Workspace &amp; Tasks Scope</text>
+
+  {/* Integration items */}
+  {/* 1: Google Calendar */}
+  <rect x="830" y="434" width="298" height="42" rx="8" fill="#0d172c" stroke="#1e293b" />
+  <circle cx="850" cy="455" r="7" fill="#4285f4" />
+  <text x="868" y="454" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11.5" font-weight="600">Google Calendar Synced</text>
+  <text x="868" y="468" fill="#64748b" font-family="monospace" font-size="10">2 events remaining today</text>
+
+  {/* 2: Gmail Filter */}
+  <rect x="830" y="486" width="298" height="42" rx="8" fill="#0d172c" stroke="#1e293b" />
+  <circle cx="850" cy="507" r="7" fill="#ea4335" />
+  <text x="868" y="506" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11.5" font-weight="600">Gmail Notification Parser</text>
+  <text x="868" y="520" fill="#64748b" font-family="monospace" font-size="10">Financial receipts captured</text>
+
+  {/* 3: Firestore Security Rules */}
+  <rect x="830" y="538" width="298" height="42" rx="8" fill="#0d172c" stroke="#1e293b" />
+  <circle cx="850" cy="559" r="7" fill="#f59e0b" />
+  <text x="868" y="558" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11.5" font-weight="600">Firebase Auth &amp; Rules</text>
+  <text x="868" y="572" fill="#10b981" font-family="monospace" font-size="10">User-Scoped Security Validated</text>
+
+  {/* Active badge */}
+  <rect x="830" y="590" width="298" height="20" rx="6" fill="#10b981" fill-opacity="0.12" />
+  <text x="979" y="604" fill="#34d399" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">SYSTEM STATUS: FULL OPERATIONAL</text>
+</svg>

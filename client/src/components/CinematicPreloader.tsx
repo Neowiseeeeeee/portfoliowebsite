@@ -127,6 +127,7 @@ export function CinematicPreloader({ onComplete, targetRef }: CinematicPreloader
     const COMET_DURATION = 1800; // 1.8 seconds to travel smoothly
 
     function render(timestamp: number) {
+      if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
       // 1. Draw Constellation Stars & connecting subtle lines

@@ -20,8 +20,10 @@ import {
   GraduationCap,
   Clock,
   Compass,
+  Lock,
 } from "lucide-react";
 import { ConstellationCanvas } from "@/components/ConstellationCanvas";
+import { KaelCosmicCanvas } from "@/components/KaelCosmicCanvas";
 import { ProjectLightbox, ProjectData } from "@/components/ProjectLightbox";
 import { CinematicPreloader } from "@/components/CinematicPreloader";
 import { CertificateModal, CertificateData } from "@/components/CertificateModal";
@@ -48,6 +50,28 @@ const profile = {
 
 // ── Projects Data ────────────────────────────────────────────────────────────
 const projects: ProjectData[] = [
+  {
+    id: 7,
+    title: "KAEL",
+    category: "AI & Full-Stack",
+    description:
+      "A personal AI assistant and unified productivity ecosystem powered by Google Gemini, automating daily task workflows, financial tracking, calendar planning, and Gmail sync.",
+    detailedDescription:
+      "KAEL is a comprehensive personal AI productivity assistant engineered to streamline daily routines, finances, and commitments. Built with a React & TypeScript frontend, Node.js & Express backend, and Cloud Firestore, it features conversational Gemini intelligence, structured task tracking, multi-category expense analytics with duplicate prevention, Gmail notification parsing, voice briefings (TTS), and enterprise-grade security rules.",
+    technologies: [
+      "Google Gemini API",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "Firebase Auth",
+      "Cloud Firestore",
+      "Google Workspace",
+    ],
+    imageUrl: "/kael.svg",
+    isPrivate: true,
+    featured: true,
+  },
   {
     id: 6,
     title: "Sanctuary",
@@ -202,6 +226,9 @@ export default function Home() {
   // Reference for the destination NEOWISE logo in navbar
   const logoTargetRef = useRef<HTMLDivElement>(null);
 
+  // Reference for the right content section for mobile & tablet auto-scrolling
+  const contentSectionRef = useRef<HTMLElement>(null);
+
   // Contact Form
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -226,6 +253,21 @@ export default function Home() {
 
   function handleTabChange(tabId: string) {
     setActiveTab(tabId);
+    if (tabId === "contact" && window.innerWidth < 1024) {
+      setTimeout(() => {
+        contentSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+  }
+
+  function handleGetInTouch() {
+    setActiveTab("contact");
+    // Immediately scroll to the contact/content canvas on mobile & tablet
+    setTimeout(() => {
+      if (contentSectionRef.current) {
+        contentSectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 50);
   }
 
   function handleCopyEmail() {
@@ -263,7 +305,15 @@ export default function Home() {
   const filteredProjects =
     projectFilter === "All"
       ? projects
-      : projects.filter((p) => p.category?.toLowerCase().includes(projectFilter.toLowerCase()));
+      : projects.filter((p) => {
+          if (projectFilter === "AI & Full-Stack") {
+            return (
+              p.category?.toLowerCase().includes("ai") ||
+              p.category?.toLowerCase().includes("full-stack")
+            );
+          }
+          return p.category?.toLowerCase().includes(projectFilter.toLowerCase());
+        });
 
   const tabs = [
     { id: "about", label: "About", icon: User, count: null },
@@ -313,9 +363,9 @@ export default function Home() {
           </span>
         </div>
 
-        {/* Quick Contact CTA */}
+        {/* Quick Contact CTA with smooth auto-scroll to contact on mobile & tablet */}
         <button
-          onClick={() => handleTabChange("contact")}
+          onClick={handleGetInTouch}
           className="px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/90 to-blue-600/90 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold shadow-lg shadow-cyan-500/20 transition-all hover:scale-105 cursor-pointer"
         >
           Get in Touch
@@ -467,7 +517,11 @@ export default function Home() {
           {/* ══════════════════════════════════════════════════════════════════════
               RIGHT DYNAMIC CONTENT CANVAS (Modern Underline Tabs)
              ══════════════════════════════════════════════════════════════════════ */}
-          <section className="flex-1 bg-[#070b16]/95 flex flex-col min-h-0 overflow-hidden">
+          <section
+            ref={contentSectionRef}
+            id="portfolio-content-section"
+            className="flex-1 bg-[#070b16]/95 flex flex-col min-h-0 overflow-hidden"
+          >
             {/* ── Modern Underline Navigation Bar with Equal Length Items ── */}
             <div className="border-b border-white/10 bg-[#090f1e]/80 backdrop-blur-md px-2 sm:px-6 sticky top-0 z-20 overflow-x-auto scrollbar-none h-[48px] sm:h-[52px] flex items-stretch shrink-0">
               <nav className="grid grid-cols-5 w-full min-w-[540px] h-full" aria-label="Portfolio Sections">
@@ -648,7 +702,7 @@ export default function Home() {
 
                       {/* Category Filters */}
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        {["All", "Full-Stack", "Healthcare & Enterprise", "WordPress & Client"].map((f) => (
+                        {["All", "AI & Full-Stack", "Healthcare & Enterprise", "WordPress & Client"].map((f) => (
                           <button
                             key={f}
                             onClick={() => setProjectFilter(f)}
@@ -676,11 +730,15 @@ export default function Home() {
                             onClick={() => setSelectedProject(project)}
                             className="aspect-[16/9] w-full bg-black/60 relative overflow-hidden cursor-pointer"
                           >
-                            <img
-                              src={project.imageUrl}
-                              alt={project.title}
-                              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                            />
+                            {project.id === 7 || project.title === "KAEL" ? (
+                              <KaelCosmicCanvas className="w-full h-full" />
+                            ) : (
+                              <img
+                                src={project.imageUrl}
+                                alt={project.title}
+                                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                              />
+                            )}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#091122] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity" />
 
                             {/* Inspect Badge on Hover */}
@@ -733,7 +791,12 @@ export default function Home() {
 
                             {/* Action Buttons */}
                             <div className="flex items-center gap-2 pt-2 border-t border-white/10">
-                              {project.projectUrl && (
+                              {project.isPrivate ? (
+                                <div className="flex-1 py-1.5 px-3 rounded-lg bg-white/[0.04] border border-cyan-500/25 text-cyan-300 text-xs font-mono font-medium flex items-center justify-center gap-1.5 cursor-default select-none shadow-sm shadow-cyan-500/5">
+                                  <Lock className="w-3.5 h-3.5 text-cyan-400" />
+                                  <span>Private System</span>
+                                </div>
+                              ) : project.projectUrl ? (
                                 <a
                                   href={project.projectUrl}
                                   target="_blank"
@@ -743,7 +806,7 @@ export default function Home() {
                                   <ExternalLink className="w-3.5 h-3.5" />
                                   Live Demo
                                 </a>
-                              )}
+                              ) : null}
                               {project.repoUrl && (
                                 <a
                                   href={project.repoUrl}
