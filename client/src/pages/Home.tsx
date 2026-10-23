@@ -860,27 +860,28 @@ export default function Home() {
                             {/* Glowing timeline node */}
                             <span className="absolute -left-6 top-1.5 w-3 h-3 rounded-full bg-[#0c1322] border-2 border-cyan-400 group-hover:scale-125 transition-transform shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
 
-                            <div className="p-5 rounded-2xl bg-[#091122]/80 border border-white/10 hover:border-cyan-500/30 transition-all">
+                            <div className="p-5 rounded-2xl bg-[#091122]/90 hover:bg-[#0b1428] border border-white/10 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 relative overflow-hidden">
+                              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 group-hover:bg-cyan-500/15 rounded-full blur-2xl pointer-events-none transition-all duration-500" />
                               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                                 <div>
                                   <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
                                     {edu.school}
                                   </h3>
-                                  <p className="text-xs text-cyan-400 font-medium">
+                                  <p className="text-xs text-cyan-400 font-medium group-hover:text-cyan-300/90 transition-colors">
                                     {edu.degree}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 group-hover:border-cyan-400/50 group-hover:bg-cyan-500/20 transition-all">
                                     {edu.badge}
                                   </span>
-                                  <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
-                                    <Calendar className="w-3 h-3" />
+                                  <span className="text-xs text-slate-400 font-mono flex items-center gap-1 group-hover:text-slate-200 transition-colors">
+                                    <Calendar className="w-3 h-3 text-cyan-400" />
                                     {edu.period}
                                   </span>
                                 </div>
                               </div>
-                              <p className="text-xs text-slate-400 leading-relaxed">
+                              <p className="text-xs text-slate-400 group-hover:text-slate-300 transition-colors leading-relaxed">
                                 {edu.details}
                               </p>
                             </div>
@@ -896,41 +897,51 @@ export default function Home() {
                         Professional & Engineering Experience
                       </div>
 
-                      {/* Technical Support Representative (Incoming) */}
-                      <div className="p-6 rounded-2xl bg-[#091122]/90 border border-cyan-500/30 space-y-3 relative overflow-hidden shadow-lg">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+                      {/* Technical Support Representative — Schneider Electric */}
+                      <div className="group p-6 rounded-2xl bg-[#091122]/90 hover:bg-[#0b1428] border border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 space-y-3 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/10 group-hover:bg-cyan-500/20 rounded-full blur-2xl pointer-events-none transition-all duration-500" />
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-base sm:text-lg font-bold text-white">
+                              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
                                 Technical Support Representative — Industry Automation
                               </h3>
-                              <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
-                                Incoming
+                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-semibold border border-emerald-500/30 group-hover:border-emerald-400/50 group-hover:bg-emerald-500/30 transition-all">
+                                Active
                               </span>
                             </div>
-                            <p className="text-xs text-slate-400 font-mono mt-0.5">
-                              Starting October 2026
+                            <p className="text-xs text-cyan-400 font-medium font-mono mt-0.5">
+                              Schneider Electric • Cavite, Philippines
                             </p>
                           </div>
-                          <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-medium self-start sm:self-auto">
-                            Offer Accepted
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto group-hover:text-slate-200 transition-colors">
+                            <Calendar className="w-3.5 h-3.5 text-cyan-400" />
+                            October 2026 — Present
                           </span>
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                          Selected to deliver technical diagnostics, systematic troubleshooting, customer issue resolution, and system ticket handling under enterprise SLA standards.
-                        </p>
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 group-hover:text-slate-200 leading-relaxed list-disc list-inside pt-1 transition-colors">
+                          <li>
+                            Provides technical diagnostics, troubleshooting, and issue resolution for Schneider Electric industrial automation products and systems.
+                          </li>
+                          <li>
+                            Handles customer technical inquiries, system ticket management, and escalations adhering to enterprise Service Level Agreements (SLAs).
+                          </li>
+                          <li>
+                            Assists clients with hardware-software configurations, product documentation, and systematic fault isolation.
+                          </li>
+                        </ul>
                       </div>
 
                       {/* Freelance Full-Stack Developer */}
-                      <div className="p-6 rounded-2xl bg-gradient-to-br from-[#091122] to-[#0d162d] border border-white/10 space-y-3">
+                      <div className="group p-6 rounded-2xl bg-[#091122]/90 hover:bg-[#0b1428] border border-white/10 hover:border-emerald-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 space-y-3 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-36 h-36 bg-emerald-500/5 group-hover:bg-emerald-500/15 rounded-full blur-2xl pointer-events-none transition-all duration-500" />
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-base sm:text-lg font-bold text-white">
+                              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
                                 Freelance Full-Stack Developer & Software Builder
                               </h3>
-                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-semibold border border-emerald-500/30">
+                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-semibold border border-emerald-500/30 group-hover:border-emerald-400/50 group-hover:bg-emerald-500/30 transition-all">
                                 Active / Current
                               </span>
                             </div>
@@ -938,12 +949,12 @@ export default function Home() {
                               Remote / Cavite, Philippines
                             </p>
                           </div>
-                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto">
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto group-hover:text-slate-200 transition-colors">
                             <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                             2026 — Present
                           </span>
                         </div>
-                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed list-disc list-inside">
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 group-hover:text-slate-200 leading-relaxed list-disc list-inside transition-colors">
                           <li>
                             Built and deployed hospital management platform (HanapCare) integrating patient intake, EMR records, and room management.
                           </li>
@@ -960,14 +971,15 @@ export default function Home() {
                       </div>
 
                       {/* Web Development OJT */}
-                      <div className="p-6 rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-cyan-500/30 transition-all space-y-3 relative overflow-hidden shadow-lg">
+                      <div className="group p-6 rounded-2xl bg-[#091122]/90 hover:bg-[#0b1428] border border-white/10 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 space-y-3 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/5 group-hover:bg-cyan-500/15 rounded-full blur-2xl pointer-events-none transition-all duration-500" />
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-base sm:text-lg font-bold text-white">
+                              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
                                 Web Development — On The Job Training
                               </h3>
-                              <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30">
+                              <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono font-semibold border border-cyan-500/30 group-hover:border-cyan-400/50 group-hover:bg-cyan-500/30 transition-all">
                                 OJT
                               </span>
                             </div>
@@ -975,12 +987,12 @@ export default function Home() {
                               Startuplab Business Center
                             </p>
                           </div>
-                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto">
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto group-hover:text-slate-200 transition-colors">
                             <Calendar className="w-3.5 h-3.5 text-cyan-400" />
                             June 2025 — August 2025
                           </span>
                         </div>
-                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed list-disc list-inside">
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 group-hover:text-slate-200 leading-relaxed list-disc list-inside transition-colors">
                           <li>
                             Developed and maintained responsive WordPress webpages using Figma-based layouts, contributing to improved website usability and user experience.
                           </li>
@@ -994,14 +1006,15 @@ export default function Home() {
                       </div>
 
                       {/* Smart Helmet Locker System Thesis */}
-                      <div className="p-6 rounded-2xl bg-[#091122]/90 border border-white/10 hover:border-blue-500/30 transition-all space-y-3 relative overflow-hidden shadow-lg">
+                      <div className="group p-6 rounded-2xl bg-[#091122]/90 hover:bg-[#0b1428] border border-white/10 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 space-y-3 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/5 group-hover:bg-blue-500/15 rounded-full blur-2xl pointer-events-none transition-all duration-500" />
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-base sm:text-lg font-bold text-white">
+                              <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
                                 Smart Helmet Locker System
                               </h3>
-                              <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono font-semibold border border-blue-500/30">
+                              <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono font-semibold border border-blue-500/30 group-hover:border-blue-400/50 group-hover:bg-blue-500/30 transition-all">
                                 Design Project · Thesis
                               </span>
                             </div>
@@ -1009,12 +1022,12 @@ export default function Home() {
                               Computer Engineering Capstone / Thesis
                             </p>
                           </div>
-                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto">
+                          <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto group-hover:text-slate-200 transition-colors">
                             <Calendar className="w-3.5 h-3.5 text-blue-400" />
                             September 2025 — June 2026
                           </span>
                         </div>
-                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed list-disc list-inside">
+                        <ul className="space-y-2 text-xs sm:text-sm text-slate-300 group-hover:text-slate-200 leading-relaxed list-disc list-inside transition-colors">
                           <li>
                             Designed and developed an IoT-based Smart Helmet Locker System integrating temperature, humidity, VOC, and moisture monitoring for helmet safety and storage management.
                           </li>
