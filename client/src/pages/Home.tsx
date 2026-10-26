@@ -30,10 +30,10 @@ import { CertificateModal, CertificateData } from "@/components/CertificateModal
 
 // ── Profile Data ─────────────────────────────────────────────────────────────
 const profile = {
-  fullName: "Chaelvin B. Bolante",
-  preferredName: "Chaelvin B. Bolante",
+  fullName: "Chaelvin Bolante",
+  preferredName: "Chaelvin Bolante",
   handle: "@Neowise",
-  title: "Software Developer & Computer Engineer",
+  title: "Software Developer",
   tagline:
     "Computer Engineering graduate with experience in web development, system implementation, and research-based projects.",
   avatarUrl: "/dp.jpg",
@@ -593,7 +593,7 @@ export default function Home() {
                     <div className="space-y-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-mono font-medium">
                         <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                        Software Developer & Computer Engineer
+                        Software Developer
                       </div>
                       <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
                         Building Resilient Software & Modern Systems
@@ -897,7 +897,7 @@ export default function Home() {
                         Professional & Engineering Experience
                       </div>
 
-                      {/* Technical Support Representative — Schneider Electric */}
+                      {/* Technical Support Representative */}
                       <div className="group p-6 rounded-2xl bg-[#091122]/90 hover:bg-[#0b1428] border border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 space-y-3 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/10 group-hover:bg-cyan-500/20 rounded-full blur-2xl pointer-events-none transition-all duration-500" />
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -910,8 +910,8 @@ export default function Home() {
                                 Active
                               </span>
                             </div>
-                            <p className="text-xs text-cyan-400 font-medium font-mono mt-0.5">
-                              Schneider Electric • Cavite, Philippines
+                            <p className="text-xs text-slate-400 font-mono mt-0.5">
+                              Cavite, Philippines
                             </p>
                           </div>
                           <span className="text-xs text-slate-400 font-mono flex items-center gap-1 self-start sm:self-auto group-hover:text-slate-200 transition-colors">
@@ -921,7 +921,7 @@ export default function Home() {
                         </div>
                         <ul className="space-y-2 text-xs sm:text-sm text-slate-300 group-hover:text-slate-200 leading-relaxed list-disc list-inside pt-1 transition-colors">
                           <li>
-                            Provides technical diagnostics, troubleshooting, and issue resolution for Schneider Electric industrial automation products and systems.
+                            Provides technical diagnostics, troubleshooting, and issue resolution for industrial automation products and systems.
                           </li>
                           <li>
                             Handles customer technical inquiries, system ticket management, and escalations adhering to enterprise Service Level Agreements (SLAs).

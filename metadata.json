@@ -1,6 +1,6 @@
 {
   "name": "Chaelvin B Bolante - Portfolio",
-  "description": "Official software developer portfolio of Chaelvin B. Bolante (@Neowise), showcasing software development projects, skills, education, and credentials.",
-  "prompt": "Official software developer portfolio of Chaelvin B. Bolante (@Neowise), showcasing software development projects, skills, education, and credentials.",
+  "description": "Official software portfolio of Chaelvin Bolante, Computer Engineering graduate and Software Developer.",
+  "prompt": "Official software portfolio of Chaelvin Bolante, Computer Engineering graduate and Software Developer.",
   "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
