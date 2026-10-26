@@ -33,10 +33,10 @@ const profile = {
   fullName: "Chaelvin B. Bolante",
   preferredName: "Chaelvin B. Bolante",
   handle: "@Neowise",
-  title: "Full-Stack Developer & Software Engineer",
+  title: "Software Developer & Computer Engineer",
   tagline:
     "Computer Engineering graduate with experience in web development, system implementation, and research-based projects.",
-  avatarUrl: "https://neowiseeeeeee.github.io/Portfolio-Website/dp.jpg",
+  avatarUrl: "/dp.jpg",
   location: "Pasong Kawayan I, General Trias, Cavite",
   email: "cbolante24@gmail.com",
   phone: "09360658121",
@@ -596,10 +596,10 @@ export default function Home() {
                         Software Developer & Computer Engineer
                       </div>
                       <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                        Practical Full-Stack Development
+                        Building Resilient Software & Modern Systems
                       </h2>
                       <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
-                        Computer Engineering graduate with experience in web development, system implementation, and research-based projects. Skilled in problem-solving, collaboration, and adapting to new technologies. Committed to delivering quality work while continuously learning and contributing to organizational success.
+                        Computer Engineering graduate and software developer focused on architecting reliable web applications, cloud-connected workflows, and automation systems. Passionate about systematic problem-solving, clean architecture, and delivering high-impact digital experiences.
                       </p>
                     </div>
 
@@ -610,10 +610,10 @@ export default function Home() {
                           <Layers className="w-5 h-5" />
                         </div>
                         <h3 className="text-base font-bold text-white mb-1">
-                          Full-Stack Development
+                          Software Development
                         </h3>
                         <p className="text-xs text-slate-400 leading-relaxed">
-                          Building responsive frontends with React and Tailwind, alongside structured backend services using Node.js, PHP, and SQL/NoSQL databases.
+                          Designing intuitive client interfaces with React and Tailwind, alongside robust backend services and APIs using Node.js, Express, and cloud databases.
                         </p>
                       </div>
 
